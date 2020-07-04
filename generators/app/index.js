@@ -39,8 +39,7 @@ module.exports = class extends Generator {
     }
 
     writing() {
-        this.log({ options: this.options });
-        this.log({ answers: this.answers });
+        this.log(this.config.get('project-name'));
         /*this.fs.copy(
       this.templatePath('dummyfile.txt'),
       this.destinationPath('dummyfile.txt')

@@ -1,6 +1,9 @@
 module.exports = class Configurator {
     saveConfigurationsFromInputs(generator) {
-        generator.config.set('project-type', this._getProjectType());
+        generator.config.set('project-type', this._getProjectType(generator));
+        generator.config.set('project-name', this._getProjectName(generator));
+        generator.config.set('support-sass', this._getSupportSass(generator));
+        generator.config.set('support-typescript', this._getSupportTypeScript(generator));
     }
 
     _getProjectType(generator) {
@@ -17,5 +20,29 @@ module.exports = class Configurator {
         }
 
         return generator.answers['project-type'];
+    }
+
+    _getProjectName(generator) {
+        if (generator.options.appname) {
+            return generator.options.appname;
+        }
+
+        return generator.answers['project-name'];
+    }
+
+    _getSupportTypeScript(generator) {
+        if (generator.options.typescript != null) {
+            return generator.options.typescript;
+        }
+
+        return generator.answers['support-typescript'];
+    }
+
+    _getSupportSass(generator) {
+        if (generator.options.sass != null) {
+            return generator.options.sass;
+        }
+
+        return generator.answers['support-sass'];
     }
 };
