@@ -9,7 +9,11 @@ module.exports = function(generator) {
             choices: ['sapper', 'svelte', 'library'],
             default: 1,
             when: function(responses) {
-                return !generator.options.svelte && !gen.options.sapper && !gen.options.library;
+                return (
+                    !generator.options.svelte &&
+                    !generator.options.sapper &&
+                    !generator.options.library
+                );
             },
         },
         {
@@ -24,8 +28,9 @@ module.exports = function(generator) {
                 if (generator.options.appname == null) {
                     return true;
                 }
+
                 generator.options.appname = generator.options.appname.trim();
-                return '' === generator.options.appname;
+                return generator.options.appname === '';
             },
         },
         {

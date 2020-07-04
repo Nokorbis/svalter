@@ -1,11 +1,11 @@
-# <%= appname =>
+# <%= project_name %>
 
 ## Get started
 
 Install the dependencies...
 
 ```bash
-cd <%= appname =>
+cd <%= project_name %>
 npm install
 ```
 

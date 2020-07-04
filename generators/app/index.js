@@ -6,6 +6,7 @@ const yosay = require('yosay');
 const buildQuestions = require('./questions.js');
 const options = require('./options.js');
 const Configurator = require('./configurator.js');
+const normalizer = new (require('./normalizer.js'))();
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -39,14 +40,19 @@ module.exports = class extends Generator {
     }
 
     writing() {
-        this.log(this.config.get('project-name'));
-        /*this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );*/
+        const templateRoot = this._getProjectTemplateRoot(this);
+
+        this.fs.copyTpl(this.templatePath(templateRoot), this.destinationPath('.'), {
+            project_name: this.config.get('project-name'),
+            package_name: normalizer.normalizePackageName(this.config.get('project-name')),
+        });
+    }
+
+    _getProjectTemplateRoot(generator) {
+        return generator.config.get('project-type');
     }
 
     install() {
-        //this.installDependencies();
+        this.installDependencies({ npm: true, bower: false, yarn: false });
     }
 };
