@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Nokorbis",
+      "authorEmail": "nokorbis@gmail.com",
+      "authorUrl": "https://github.com/Nokorbis"
+    }
+  }
+}
