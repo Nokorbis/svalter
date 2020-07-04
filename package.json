@@ -34,10 +34,10 @@
     "jest": "^26.1.0"
   },
   "engines": {
-    "npm": ">= 4.0.0"
+    "npm": ">= 10.0.0"
   },
   "dependencies": {
-    "yeoman-generator": "^2.0.1",
+    "yeoman-generator": "^4.11.0",
     "chalk": "^2.1.0",
     "yosay": "^2.0.1"
   },
