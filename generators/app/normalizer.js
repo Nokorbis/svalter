@@ -4,13 +4,12 @@ module.exports = class Normalizer {
             .trim()
             .toLowerCase()
             .replace(/\s+/, ' ')
-            .replace(' ', '-')
-            .replace("'", '-')
-            .replace(/[éè]/, 'e')
-            .replace(/[àá]/, 'a')
-            .replace(/[ô]/, 'o')
-            .replace(/[ùµ]/, 'u')
-            .replace(/[ï]/, 'i')
+            .replace(/[ ']/, '-')
+            .replace(/[êèéë]/, 'e')
+            .replace(/[âàáä]/, 'a')
+            .replace(/[ôòóö]/, 'o')
+            .replace(/[ûùúüµ]/, 'u')
+            .replace(/[îìíï]/, 'i')
             .replace(/[&@#§!]/, '');
     }
 };
