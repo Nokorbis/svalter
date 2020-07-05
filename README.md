@@ -23,11 +23,11 @@ yo svalter [project_name] [options...]
 | --**svelte** | Creates a **svelte** project. *(Skips the project type question)* |
 | --**sapper** | Creates a **sapper** project. *(Skips the project type question)* |
 | --**library** | Creates a **component library** project *(Skips the project type question)* |
-| --**css-reset**=*\<name>* | Adds a css reset in your project. *name* can be any of : none, meyer_reset, normalize, sanitize *(Skips the css reset question)* |
-| --**typescript**  *or*  --**ts** | Adds TypeScript support to your project *(Skips the TypeScript question)* |
-| --**no-typescript** *or* --**no-ts** | Does not add TypeScript support to your project *(Skips the TypeScript question)* | 
-| --**sass** *or* --**scss** | Adds SASS support to your project *(Skips the SASS question)* |
-| --**no-sass** *or* --**no-scss** | Does not add SASS support to your project *(Skips the SASS question)* |
+| --**css-reset**=*\<name>* | Adds a css reset in your project. *name* can be any of : **none**, **meyer_reset**, **normalize**, **sanitize** *(Skips the css reset question)* |
+| --**typescript**  *or*  --**ts** | **Adds TypeScript support** to your project *(Skips the TypeScript question)* |
+| --**no-typescript** *or* --**no-ts** | Does **not add TypeScript support** to your project *(Skips the TypeScript question)* | 
+| --**sass** *or* --**scss** | **Adds SASS support** to your project *(Skips the SASS question)* |
+| --**no-sass** *or* --**no-scss** | Does **not add SASS support** to your project *(Skips the SASS question)* |
 
 ## License
 
