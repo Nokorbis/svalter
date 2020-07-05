@@ -45,7 +45,17 @@ module.exports = class extends Generator {
         this.fs.copyTpl(this.templatePath(templateRoot), this.destinationPath('.'), {
             project_name: this.config.get('project-name'),
             package_name: normalizer.normalizePackageName(this.config.get('project-name')),
+            css_reset: this.config.get('css-reset'),
         });
+
+        const cReset = this.config.get('css-reset');
+        if (cReset !== 'none') {
+            const resetFile = `${cReset}.css`;
+            this.fs.copy(
+                this.templatePath(`common/${resetFile}`),
+                this.destinationPath(`public/styles/${resetFile}`)
+            );
+        }
     }
 
     _getProjectTemplateRoot(generator) {
@@ -53,6 +63,6 @@ module.exports = class extends Generator {
     }
 
     install() {
-        this.installDependencies({ npm: true, bower: false, yarn: false });
+        // This.installDependencies({ npm: true, bower: false, yarn: false });
     }
 };

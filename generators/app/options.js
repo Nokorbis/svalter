@@ -36,4 +36,12 @@ module.exports = [
             alias: 'scss',
         },
     },
+    {
+        name: 'css-reset',
+        config: {
+            desc:
+                "Defines a css reset to start your project with. Possible values are : 'none', 'meyer_reset', 'normalize', 'sanitize'",
+            type: String,
+        },
+    },
 ];

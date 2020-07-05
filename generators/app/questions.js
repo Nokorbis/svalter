@@ -51,5 +51,21 @@ module.exports = function(generator) {
                 return generator.options.sass == null;
             },
         },
+        {
+            type: 'list',
+            name: 'css-reset',
+            loop: true,
+            message: 'Do you want to use a css reset?',
+            choices: [
+                { name: 'No', value: 'none' },
+                { name: 'CSS Reset (by Eric Meyer)', value: 'meyer_reset' },
+                { name: 'Normalize (by Necolas)', value: 'normalize' },
+                { name: 'Sanitize (by CSS Tools)', value: 'sanitize' },
+            ],
+            default: 0,
+            when: (responses) => {
+                return generator.options['css-reset'] == null;
+            },
+        },
     ];
 };
