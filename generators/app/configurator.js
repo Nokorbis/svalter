@@ -1,3 +1,4 @@
+'use strict';
 module.exports = class Configurator {
     saveConfigurationsFromInputs(generator) {
         generator.config.set('project-type', this._getProjectType(generator));
@@ -32,7 +33,7 @@ module.exports = class Configurator {
     }
 
     _getSupportTypeScript(generator) {
-        if (generator.options.typescript !== null) {
+        if (generator.options.typescript != null) {
             return generator.options.typescript;
         }
 
@@ -40,7 +41,7 @@ module.exports = class Configurator {
     }
 
     _getSupportSass(generator) {
-        if (generator.options.sass !== null) {
+        if (generator.options.sass != null) {
             return generator.options.sass;
         }
 
@@ -49,7 +50,7 @@ module.exports = class Configurator {
 
     _getCSSReset(generator) {
         let opt = generator.options['css-reset'];
-        if (opt !== null) {
+        if (opt != null) {
             opt = opt.toLowerCase();
             if (opt === 'meyer_reset' || opt === 'normalize' || opt === 'sanitize') {
                 return opt;
