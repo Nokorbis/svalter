@@ -49,6 +49,10 @@ module.exports = class Configurator {
     }
 
     _getCSSReset(generator) {
+        if (!this._supportsCssReset(generator)) {
+            return 'none';
+        }
+
         let opt = generator.options['css-reset'];
         if (opt != null) {
             opt = opt.toLowerCase();
@@ -60,5 +64,14 @@ module.exports = class Configurator {
         }
 
         return generator.answers['css-reset'];
+    }
+
+    _supportsCssReset(generator) {
+        return (
+            generator.options['sapper'] === true ||
+            generator.options['svelte'] === true ||
+            'sapper' === generator.answers['project-type'] ||
+            'svelte' === generator.answers['project-type']
+        );
     }
 };

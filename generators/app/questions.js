@@ -7,7 +7,11 @@ module.exports = function(generator) {
             type: 'list',
             name: 'project-type',
             message: 'Type of project?',
-            choices: ['sapper', 'svelte', 'library'],
+            choices: [
+                { name: 'Sapper', value: 'sapper' },
+                { name: 'Svelte', value: 'svelte' },
+                { name: 'Component Library', value: 'library' },
+            ],
             default: 1,
             when: function(responses) {
                 return (
@@ -65,8 +69,20 @@ module.exports = function(generator) {
             ],
             default: 0,
             when: (responses) => {
-                return generator.options['css-reset'] == null;
+                if (supportsCssReset(generator, responses)) {
+                    return generator.options['css-reset'] == null;
+                }
+                return false;
             },
         },
     ];
 };
+
+function supportsCssReset(generator, responses) {
+    return (
+        generator.options['sapper'] === true ||
+        generator.options['svelte'] === true ||
+        'sapper' === responses['project-type'] ||
+        'svelte' === responses['project-type']
+    );
+}

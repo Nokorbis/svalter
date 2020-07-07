@@ -7,6 +7,7 @@ const buildQuestions = require('./questions.js');
 const options = require('./options.js');
 const Configurator = require('./configurator.js');
 const writer = new (require('./writer.js'))();
+const installer = new (require('./installer.js'))();
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -44,6 +45,6 @@ module.exports = class extends Generator {
     }
 
     install() {
-        // This.installDependencies({ npm: true, bower: false, yarn: false });
+        installer.install(this);
     }
 };
