@@ -39,21 +39,16 @@ module.exports = function(generator) {
             },
         },
         {
-            type: 'confirm',
-            name: 'support-typescript',
-            message: 'Do you want your project to support TypeScript?',
-            default: false,
+            type: 'checkbox',
+            name: 'support-preprocessors',
+            message: 'Do you want your project to support some preprocessors ?',
+            choices: [
+                { name: 'TypeScript', value: 'typescript' },
+                { name: 'SASS', value: 'sass' },
+            ],
             when: function(responses) {
-                return generator.options.typescript == null;
-            },
-        },
-        {
-            type: 'confirm',
-            name: 'support-sass',
-            message: 'Do you want your project to support SASS?',
-            default: false,
-            when: function(responses) {
-                return generator.options.sass == null;
+              const opts = generator.options;
+              return opts.typescript == null || opts.sass == null;
             },
         },
         {

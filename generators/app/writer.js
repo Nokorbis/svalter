@@ -15,6 +15,8 @@ module.exports = class Writer {
             project_name: gen.config.get('project-name'),
             package_name: normalizer.normalizePackageName(gen.config.get('project-name')),
             css_reset: gen.config.get('css-reset'),
+            support_typescript: gen.config.get('support-typescript'),
+            support_sass: gen.config.get('support-sass'),
         });
     }
 

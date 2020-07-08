@@ -3,8 +3,7 @@ module.exports = class Configurator {
     saveConfigurationsFromInputs(generator) {
         generator.config.set('project-type', this._getProjectType(generator));
         generator.config.set('project-name', this._getProjectName(generator));
-        generator.config.set('support-sass', this._getSupportSass(generator));
-        generator.config.set('support-typescript', this._getSupportTypeScript(generator));
+        generator.config.set('support-preprocessors', this._getSupportPreprocessors(generator));
         generator.config.set('css-reset', this._getCSSReset(generator));
     }
 
@@ -40,12 +39,22 @@ module.exports = class Configurator {
         return generator.answers['support-typescript'];
     }
 
-    _getSupportSass(generator) {
-        if (generator.options.sass != null) {
-            return generator.options.sass;
+    _getSupportPreprocessors(generator) {
+        const answs = generator.answers['support-preprocessors'];
+
+        const supported = [];
+        if (
+            generator.options.typescript != null ||
+            (answs != null && answs.includes('typescript'))
+        ) {
+            supported.push('typescript');
         }
 
-        return generator.answers['support-sass'];
+        if (generator.options.sass != null || (answs != null && answs.includes('sass'))) {
+            supported.push('sass');
+        }
+
+        return supported;
     }
 
     _getCSSReset(generator) {

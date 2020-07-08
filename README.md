@@ -13,6 +13,8 @@ npm install -g generator-svalter
 Then generate your new project:
 
 ```bash
+mkdir your-project
+cd your-project
 yo svalter [project_name] [options...]
 ```
 
