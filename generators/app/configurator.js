@@ -54,6 +54,13 @@ module.exports = class Configurator {
             supported.push('sass');
         }
 
+        if (
+            generator.options.separation != null ||
+            (answs != null && answs.includes('separation'))
+        ) {
+            supported.push('separation');
+        }
+
         return supported;
     }
 

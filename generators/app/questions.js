@@ -43,12 +43,13 @@ module.exports = function(generator) {
             name: 'support-preprocessors',
             message: 'Do you want your project to support some preprocessors ?',
             choices: [
+                { name: 'Separated component files (markup + script + style)', value: 'separation'},
                 { name: 'TypeScript', value: 'typescript' },
                 { name: 'SASS', value: 'sass' },
             ],
             when: function(responses) {
               const opts = generator.options;
-              return opts.typescript == null || opts.sass == null;
+              return opts.typescript == null || opts.sass == null || opts.separation == null;
             },
         },
         {
