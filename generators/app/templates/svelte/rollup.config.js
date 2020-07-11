@@ -23,7 +23,7 @@ export default {
               sourcemap: !production,
               <% if (support_preprocessors.includes('sass')) { %>
               scss: {
-                prependData: `@use '${path.resolve(process.cwd(), 'src/assets/styles/variables.scss')}';`
+                prependData: `@import '${path.resolve(process.cwd(), 'src/assets/styles/variables.scss').replace(/\\/g, '/')}';`
               }
               <% } %>
             }),
