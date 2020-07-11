@@ -20,6 +20,7 @@
     <% } %>
     <% if (support_preprocessors.includes('typescript')) { %>
     "typescript": "^3.9.6",
+    "@rollup/plugin-typescript": "^5.0.1",
     <% } %>
     <% } %>
     "svelte": "^3.24.0"
