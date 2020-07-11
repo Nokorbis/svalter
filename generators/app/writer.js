@@ -11,13 +11,19 @@ module.exports = class Writer {
     _writeProjectStructure(gen) {
         const templateRoot = this._getProjectTemplateRoot(gen);
 
+        const config = gen.config;
+        const preprocessors = config.get('support-preprocessors');
+
         gen.fs.copyTpl(gen.templatePath(templateRoot), gen.destinationPath('.'), {
-            project_name: gen.config.get('project-name'),
-            package_name: normalizer.normalizePackageName(gen.config.get('project-name')),
-            css_reset: gen.config.get('css-reset'),
-            support_typescript: gen.config.get('support-typescript'),
-            support_sass: gen.config.get('support-sass'),
+            project_name: config.get('project-name'),
+            package_name: normalizer.normalizePackageName(config.get('project-name')),
+            css_reset: config.get('css-reset'),
+            support_preprocessors: preprocessors,
         });
+
+        if (preprocessors.includes('sass')) {
+            gen.fs.copy(gen.templatePath('common/assets'), gen.destinationPath('./src/assets'));
+        }
     }
 
     _writeCssReset(gen) {
@@ -26,7 +32,7 @@ module.exports = class Writer {
             const resetFile = `${cReset}.css`;
             const stylesFolder = this._getStylesFolder(gen);
             gen.fs.copy(
-                gen.templatePath(`common/${resetFile}`),
+                gen.templatePath(`common/css/${resetFile}`),
                 gen.destinationPath(`${stylesFolder}/${resetFile}`)
             );
         }
