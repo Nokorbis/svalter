@@ -11,6 +11,18 @@ const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
+<% if (support_preprocessors.includes('sass')) { %>import path from 'path'; <% } %>
+<% if (support_preprocessors.length > 0) { %>
+import autoPreprocess from 'svelte-preprocess';
+const preprocess = autoPreprocess({
+  <% if (support_preprocessors.includes('sass')) { %>
+  sass: {
+    prependData: `@use 'src/assets/styles/variables.scss' as *;`
+  },
+  <% } %>
+});
+<% } %>
+
 const onwarn = (warning, onwarn) =>
     (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) ||
     onwarn(warning);
@@ -26,6 +38,7 @@ export default {
                 __APP_NAME__: '<%= project_name %>',
             }),
             svelte({
+              <% if (support_preprocessors.length > 0) { %>preprocess,<% } %>
                 dev,
                 hydratable: true,
                 emitCss: true,
@@ -80,6 +93,7 @@ export default {
                 __APP_NAME__: '<%= project_name %>',
             }),
             svelte({
+              <% if (support_preprocessors.length > 0) { %>preprocess,<% } %>
                 generate: 'ssr',
                 dev,
             }),
