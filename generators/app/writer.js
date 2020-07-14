@@ -14,7 +14,6 @@ module.exports = class Writer {
         const config = gen.config;
 
         const prepParams = this._getPreprocessorsParameters(config);
-
         gen.fs.copyTpl(gen.templatePath(templateRoot), gen.destinationPath('.'), {
             project_name: config.get('project-name'),
             package_name: normalizer.normalizePackageName(config.get('project-name')),
@@ -24,15 +23,19 @@ module.exports = class Writer {
 
         if (prepParams.has_preprocessors) {
             gen.fs.copyTpl(
-                gen.templatePath('common/svelte.config.js'),
+                gen.templatePath('_common/svelte.config.js'),
                 gen.destinationPath('./svelte.config.js'),
                 {
                     ...prepParams,
                 }
             );
 
-            if (prepParams.sass) {
-                gen.fs.copy(gen.templatePath('common/assets'), gen.destinationPath('./src/assets'));
+            if (prepParams.separation) {
+                const projectType = this._getType(gen);
+                const styleType = prepParams.sass ? 'sass' : 'css';
+                const scriptType = prepParams.typescript ? 'typescript' : 'javascript';
+
+                gen.fs.copy(gen.templatePath(`_specificities/${projectType}/${styleType}`), gen.destinationPath('.'));
             }
         }
     }
@@ -54,7 +57,7 @@ module.exports = class Writer {
             const resetFile = `${cReset}.css`;
             const stylesFolder = this._getStylesFolder(gen);
             gen.fs.copy(
-                gen.templatePath(`common/css/${resetFile}`),
+                gen.templatePath(`_common/css/${resetFile}`),
                 gen.destinationPath(`${stylesFolder}/${resetFile}`)
             );
         }
