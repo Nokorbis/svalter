@@ -30,12 +30,20 @@ module.exports = class Writer {
                 }
             );
 
-            if (prepParams.separation) {
-                const projectType = this._getType(gen);
-                const styleType = prepParams.sass ? 'sass' : 'css';
-                const scriptType = prepParams.typescript ? 'typescript' : 'javascript';
+            const projectType = this._getType(gen);
+            const styleType = prepParams.sass ? 'sass' : 'css';
+            const scriptType = prepParams.typescript ? 'typescript' : 'javascript';
 
-                gen.fs.copy(gen.templatePath(`_specificities/${projectType}/${styleType}`), gen.destinationPath('.'));
+            if (prepParams.separation) {
+                gen.fs.copy(
+                    gen.templatePath(`_specificities/${projectType}/${styleType}`),
+                    gen.destinationPath('.')
+                );
+            } else if (prepParams.sass) {
+                gen.fs.copy(
+                    gen.templatePath(`_specificities/${projectType}/${styleType}/src/assets`),
+                    gen.destinationPath('./src/assets')
+                );
             }
         }
     }
