@@ -30,12 +30,12 @@
         "@rollup/plugin-node-resolve": "^8.1.0",
         "@rollup/plugin-replace": "^2.3.3",
         "rollup": "^2.21.0",
-        <% if (support_preprocessors.length > 1) { %>
-        "svelte-preprocess": "^4.0.6",
-        <% if (support_preprocessors.includes('sass')) { %>
+        <% if (has_preprocessors) { %>
+        "svelte-preprocess": "^4.0.8",
+        <% if (sass) { %>
         "sass": "^1.26.10",
         <% } %>
-        <% if (support_preprocessors.includes('typescript')) { %>
+        <% if (typescript) { %>
         "typescript": "^3.9.6",
         "@rollup/plugin-typescript": "^5.0.1",
         <% } %>

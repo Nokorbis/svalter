@@ -7,7 +7,7 @@ import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 
-<% if (support_preprocessors.length > 0) { %>
+<% if (has_preprocessors) { %>
 import { preprocess } from './svelte.config.js';
 <% } %>
 
@@ -31,7 +31,7 @@ export default {
                 __APP_NAME__: '<%= project_name %>',
             }),
             svelte({
-              <% if (support_preprocessors.length > 0) { %>preprocess: preprocess(dev),<% } %>
+              <% if (has_preprocessors) { %>preprocess: preprocess(dev),<% } %>
                 dev,
                 hydratable: true,
                 emitCss: true,
@@ -86,7 +86,7 @@ export default {
                 __APP_NAME__: '<%= project_name %>',
             }),
             svelte({
-                <% if (support_preprocessors.length > 0) { %>preprocess: preprocess(dev),<% } %>
+                <% if (has_preprocessors) { %>preprocess: preprocess(dev),<% } %>
                 generate: 'ssr',
                 dev,
             }),

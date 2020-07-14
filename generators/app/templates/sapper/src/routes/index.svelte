@@ -1,4 +1,4 @@
-<style>
+<style <% if (sass) { %> lang="scss" <% } %> >
 	h1, figure, p {
 		text-align: center;
 		margin: 0 auto;
@@ -9,6 +9,7 @@
 		text-transform: uppercase;
 		font-weight: 700;
 		margin: 0 0 0.5em 0;
+<% if (sass) { %> color: $primary-color; <% } %>
 	}
 
 	figure {
@@ -33,7 +34,7 @@
 </style>
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title><%= project_name %></title>
 </svelte:head>
 
 <h1>Great success!</h1>

@@ -12,24 +12,40 @@ module.exports = class Writer {
         const templateRoot = this._getProjectTemplateRoot(gen);
 
         const config = gen.config;
-        const preprocessors = config.get('support-preprocessors');
+
+        const prepParams = this._getPreprocessorsParameters(config);
 
         gen.fs.copyTpl(gen.templatePath(templateRoot), gen.destinationPath('.'), {
             project_name: config.get('project-name'),
             package_name: normalizer.normalizePackageName(config.get('project-name')),
             css_reset: config.get('css-reset'),
-            support_preprocessors: preprocessors,
+            ...prepParams,
         });
 
-        if (preprocessors.length > 0) {
-            gen.fs.copyTpl(gen.templatePath('common/svelte.config.js'), gen.destinationPath('./svelte.config.js'), {
-              support_preprocessors: preprocessors,
-            });
+        if (prepParams.has_preprocessors) {
+            gen.fs.copyTpl(
+                gen.templatePath('common/svelte.config.js'),
+                gen.destinationPath('./svelte.config.js'),
+                {
+                    ...prepParams,
+                }
+            );
 
-            if (preprocessors.includes('sass')) {
-              gen.fs.copy(gen.templatePath('common/assets'), gen.destinationPath('./src/assets'));
+            if (prepParams.sass) {
+                gen.fs.copy(gen.templatePath('common/assets'), gen.destinationPath('./src/assets'));
             }
         }
+    }
+
+    _getPreprocessorsParameters(config) {
+        const preprocessors = config.get('support-preprocessors');
+        return {
+            preprocessors: preprocessors,
+            has_preprocessors: preprocessors.length > 0,
+            sass: preprocessors.includes('sass'),
+            typescript: preprocessors.includes('typescript'),
+            separation: preprocessors.includes('separation'),
+        };
     }
 
     _writeCssReset(gen) {

@@ -4,7 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 
-<% if (support_preprocessors.length > 0) { %>import preprocess from './svelte.config.js'; <% } %>
+<% if (has_preprocessors) { %>import { preprocess } from './svelte.config.js'; <% } %>
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -18,7 +18,7 @@ export default {
     },
     plugins: [
         svelte({
-            <% if (support_preprocessors.length > 0) { %>
+            <% if (has_preprocessors) { %>
             preprocess: preprocess(!production),
             <% } %>
             // enable run-time checks when not in production
