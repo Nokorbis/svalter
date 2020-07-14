@@ -3,8 +3,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-<% if (support_preprocessors.length > 0) { %>import autoPreprocess from 'svelte-preprocess'; <% } %>
-<% if (support_preprocessors.includes('sass')) { %>import path from 'path'; <% } %>
+
+<% if (support_preprocessors.length > 0) { %>import preprocess from './svelte.config.js'; <% } %>
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -19,14 +19,7 @@ export default {
     plugins: [
         svelte({
             <% if (support_preprocessors.length > 0) { %>
-            preprocess: autoPreprocess({
-              sourcemap: !production,
-              <% if (support_preprocessors.includes('sass')) { %>
-              scss: {
-                prependData: `@use 'src/assets/styles/variables.scss' as *;`
-              }
-              <% } %>
-            }),
+            preprocess: preprocess(!production),
             <% } %>
             // enable run-time checks when not in production
             dev: !production,

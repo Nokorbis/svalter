@@ -21,8 +21,14 @@ module.exports = class Writer {
             support_preprocessors: preprocessors,
         });
 
-        if (preprocessors.includes('sass')) {
-            gen.fs.copy(gen.templatePath('common/assets'), gen.destinationPath('./src/assets'));
+        if (preprocessors.length > 0) {
+            gen.fs.copyTpl(gen.templatePath('common/svelte.config.js'), gen.destinationPath('./svelte.config.js'), {
+              support_preprocessors: preprocessors,
+            });
+
+            if (preprocessors.includes('sass')) {
+              gen.fs.copy(gen.templatePath('common/assets'), gen.destinationPath('./src/assets'));
+            }
         }
     }
 
