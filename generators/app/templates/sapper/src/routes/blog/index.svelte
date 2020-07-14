@@ -10,12 +10,6 @@
 	export let posts;
 </script>
 
-<style>
-	ul {
-		margin: 0 0 1em 0;
-		line-height: 1.5;
-	}
-</style>
 
 <svelte:head>
 	<title>Blog</title>
@@ -32,3 +26,25 @@
 		<li><a rel='prefetch' href='blog/{post.slug}'>{post.title}</a></li>
 	{/each}
 </ul>
+
+<% if (separation) { -%>
+
+<% if (sass) { -%>
+<style src="./_index.scss"></style>
+<% } else { -%>
+<style src="./_index.css"></style>
+<% } -%>
+
+<% } else { -%>
+
+<% if (sass) { -%>
+<style lang="scss">
+  <%- include('../../../../_specificities/sapper/sass/src/routes/blog/_index.scss'); -%>
+</style>
+<% } else { -%>
+<style>
+  <%- include('../../../../_specificities/sapper/css/src/routes/blog/_index.css'); -%>
+</style>
+<% } -%>
+
+<% } -%>
