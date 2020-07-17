@@ -4,19 +4,30 @@
 	export let segment;
 </script>
 
-<style>
-	main {
-		position: relative;
-		max-width: 56em;
-		background-color: white;
-		padding: 2em;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-</style>
-
 <Nav {segment}/>
 
 <main>
 	<slot></slot>
 </main>
+
+<% if (separation) { -%>
+
+<% if (sass) { -%>
+<style src="./_layout.scss"></style>
+<% } else { -%>
+<style src="./_layout.css"></style>
+<% } -%>
+
+<% } else { -%>
+
+<% if (sass) { -%>
+<style lang="scss">
+  <%- include('../../../_specificities/sapper/sass/src/routes/_layout.scss'); -%>
+</style>
+<% } else { -%>
+<style>
+  <%- include('../../../_specificities/sapper/css/src/routes/_layout.css'); -%>
+</style>
+<% } -%>
+
+<% } -%>
