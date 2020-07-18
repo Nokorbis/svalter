@@ -9,20 +9,20 @@
 <% if (separation) { -%>
 
 <% if (sass) { -%>
-<style src="./_about.scss"></style>
+<style src="./_index.scss"></style>
 <% } else { -%>
-<style src="./_about.css"></style>
+<style src="./_index.css"></style>
 <% } -%>
 
 <% } else { -%>
 
 <% if (sass) { -%>
 <style lang="scss">
-  <%- include('../../../_specificities/sapper/sass/src/routes/_about.scss'); -%>
+  <%- include('../../../_specificities/sapper/sass/src/routes/_index.scss'); -%>
 </style>
 <% } else { -%>
 <style>
-  <%- include('../../../_specificities/sapper/css/src/routes/_about.css'); -%>
+  <%- include('../../../_specificities/sapper/css/src/routes/_index.css'); -%>
 </style>
 <% } -%>
 
