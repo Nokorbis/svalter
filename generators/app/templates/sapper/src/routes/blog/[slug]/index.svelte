@@ -1,7 +1,7 @@
 <script context="module">
 	export async function preload({ params, query }) {
 		// the `slug` parameter is available because
-		// this file is called [slug].svelte
+		// this file is called index.svelte
 		const res = await this.fetch(`blog/${params.slug}.json`);
 		const data = await res.json();
 
@@ -31,20 +31,20 @@
 <% if (separation) { -%>
 
 <% if (sass) { -%>
-<style src="./_slug.scss"></style>
+<style src="./_index.scss"></style>
 <% } else { -%>
-<style src="./_slug.css"></style>
+<style src="./_index.css"></style>
 <% } -%>
 
 <% } else { -%>
 
 <% if (sass) { -%>
 <style lang="scss">
-  <%- include('../../../../_specificities/sapper/sass/src/routes/blog/_slug.scss'); -%>
+  <%- include('../../../../_specificities/sapper/sass/src/routes/blog/_index.scss'); -%>
 </style>
 <% } else { -%>
 <style>
-  <%- include('../../../../_specificities/sapper/css/src/routes/blog/_slug.css'); -%>
+  <%- include('../../../../_specificities/sapper/css/src/routes/blog/_index.css'); -%>
 </style>
 <% } -%>
 
