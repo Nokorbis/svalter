@@ -34,7 +34,8 @@
         "svelte-preprocess": "^4.0.8",
         <% if (sass) { -%>
         "sass": "^1.26.10",
-        <% } %>
+        "postcss": "^7.0.32",
+        <% } -%>
         <% if (typescript) { -%>
         "typescript": "^3.9.6",
         "@rollup/plugin-typescript": "^5.0.1",
