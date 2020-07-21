@@ -3,13 +3,18 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+<% if (typescript) { -%> import typescript from '@rollup/plugin-typescript'; <% } -%>
 
 <% if (has_preprocessors) { -%>import { preprocess } from './svelte.config.js'; <% } -%>
 
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
+    <% if (typescript) { -%>
+    input: 'src/main.ts',
+    <% } else { -%>
     input: 'src/main.js',
+    <% } -%>
     output: {
         sourcemap: true,
         format: 'iife',
@@ -40,6 +45,9 @@ export default {
             dedupe: ['svelte'],
         }),
         commonjs(),
+        <% if (typescript) { -%>
+        typescript({ sourceMap: !production }),
+        <% } -%>
 
         // In dev mode, call `npm run start` once
         // the bundle has been generated
