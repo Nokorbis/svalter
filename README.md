@@ -18,7 +18,15 @@ cd your-project
 yo svalter [project_name] [options...]
 ```
 
+## Planned features
+
+- Page generation for sapper
+- Component generation (according to the style/script/separation configuration)
+- Script generation (models, services, actions) (according to script configuration)
+
 ## Available options
+
+/!\ Warning : TypeScript isn't actually supported yet for sapper
 
 | Option | Description |
 | ---:   | ---         |
