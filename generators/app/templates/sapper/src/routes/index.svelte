@@ -23,11 +23,11 @@
 
 <% if (sass) { -%>
 <style lang="scss">
-  <%- include('../../../_specificities/sapper/sass/src/routes/_index.scss'); -%>
+  <%- include('../../../_specificities/sapper/sass/separation/src/routes/_index.scss'); -%>
 </style>
 <% } else { -%>
 <style>
-  <%- include('../../../_specificities/sapper/css/src/routes/_index.css'); -%>
+  <%- include('../../../_specificities/sapper/css/separation/src/routes/_index.css'); -%>
 </style>
 <% } -%>
 

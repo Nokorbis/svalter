@@ -40,11 +40,11 @@
 
 <% if (sass) { -%>
 <style lang="scss">
-  <%- include('../../../../_specificities/sapper/sass/src/routes/blog/_index.scss'); -%>
+  <%- include('../../../../_specificities/sapper/sass/separation/src/routes/blog/_index.scss'); -%>
 </style>
 <% } else { -%>
 <style>
-  <%- include('../../../../_specificities/sapper/css/src/routes/blog/_index.css'); -%>
+  <%- include('../../../../_specificities/sapper/css/separation/src/routes/blog/_index.css'); -%>
 </style>
 <% } -%>
 

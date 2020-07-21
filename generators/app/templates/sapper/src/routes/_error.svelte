@@ -30,11 +30,11 @@
 
 <% if (sass) { -%>
 <style lang="scss">
-  <%- include('../../../_specificities/sapper/sass/src/routes/_error.scss'); -%>
+  <%- include('../../../_specificities/sapper/sass/separation/src/routes/_error.scss'); -%>
 </style>
 <% } else { -%>
 <style>
-  <%- include('../../../_specificities/sapper/css/src/routes/_error.css'); -%>
+  <%- include('../../../_specificities/sapper/css/separation/src/routes/_error.css'); -%>
 </style>
 <% } -%>
 

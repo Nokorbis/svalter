@@ -3,6 +3,9 @@
     "description": "<%= project_name %> app",
     "version": "0.0.1",
     "scripts": {
+        <% if (typescript) { -%>,
+        "validate": "svelte-check",
+        <% } -%>
         "dev": "sapper dev",
         "build": "sapper build --legacy",
         "export": "sapper export --legacy",
@@ -37,8 +40,11 @@
         "postcss": "^7.0.32",
         <% } -%>
         <% if (typescript) { -%>
-        "typescript": "^3.9.6",
-        "@rollup/plugin-typescript": "^5.0.1",
+        "typescript": "^3.9.7",
+        "@rollup/plugin-typescript": "^5.0.2",
+        "svelte-check": "^0.1.55",
+        "tslib": "^2.0.0",
+        "@tsconfig/svelte": "^1.0.2"
         <% } -%>
         <% } -%>
         "rollup-plugin-svelte": "^5.2.3",

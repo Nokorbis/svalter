@@ -34,15 +34,25 @@ module.exports = class Writer {
             const styleType = prepParams.sass ? 'sass' : 'css';
             const scriptType = prepParams.typescript ? 'typescript' : 'javascript';
 
+          gen.fs.copy(
+            gen.templatePath(`_specificities/${projectType}/${styleType}/required`),
+            gen.destinationPath('.')
+          );
+
+          gen.fs.copyTpl(
+            gen.templatePath(`_specificities/${projectType}/${scriptType}/required`),
+            gen.destinationPath('.')
+          );
+
             if (prepParams.separation) {
                 gen.fs.copy(
-                    gen.templatePath(`_specificities/${projectType}/${styleType}`),
+                    gen.templatePath(`_specificities/${projectType}/${styleType}/separation`),
                     gen.destinationPath('.')
                 );
-            } else if (prepParams.sass) {
-                gen.fs.copy(
-                    gen.templatePath(`_specificities/${projectType}/${styleType}/src/assets`),
-                    gen.destinationPath('./src/assets')
+
+                gen.fs.copyTpl(
+                    gen.templatePath(`_specificities/${projectType}/${scriptType}/separation`),
+                    gen.destinationPath('.')
                 );
             }
         }

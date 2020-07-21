@@ -1,6 +1,24 @@
-<script>
-  export let name;
+<% if (separation) { -%>
+
+<% if (typescript) { -%>
+<script src="./_Layout.ts"></script>
+<% } else { -%>
+<script src="./_Layout.js"></script>
+<% } -%>
+
+<% } else { -%>
+
+<% if (typescript) { -%>
+<script lang="ts">
+  <%- include('../../_specificities/svelte/typescript/separation/src/_Layout.ts'); -%>
 </script>
+<% } else { -%>
+<script>
+  <%- include('../../_specificities/svelte/javascript/separation/src/_Layout.js'); -%>
+</script>
+<% } -%>
+
+<% } -%>
 
 
 <main>
@@ -21,11 +39,11 @@
 
 <% if (sass) { -%>
 <style lang="scss">
-  <%- include('../../_specificities/svelte/sass/src/_Layout.scss'); -%>
+  <%- include('../../_specificities/svelte/sass/separation/src/_Layout.scss'); -%>
 </style>
 <% } else { -%>
 <style>
-  <%- include('../../_specificities/svelte/css/src/_Layout.css'); -%>
+  <%- include('../../_specificities/svelte/css/separation/src/_Layout.css'); -%>
 </style>
 <% } -%>
 

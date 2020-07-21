@@ -25,11 +25,11 @@
 
 <% if (sass) { -%>
 <style lang="scss">
-  <%- include('../../../_specificities/sapper/sass/src/components/Nav.scss'); -%>
+  <%- include('../../../_specificities/sapper/sass/separation/src/components/Nav.scss'); -%>
 </style>
 <% } else { -%>
 <style>
-  <%- include('../../../_specificities/sapper/css/src/components/Nav.css'); -%>
+  <%- include('../../../_specificities/sapper/css/separation/src/components/Nav.css'); -%>
 </style>
 <% } -%>
 
