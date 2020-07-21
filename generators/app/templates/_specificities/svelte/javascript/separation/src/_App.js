@@ -1,2 +1,2 @@
-import Layout from 'Layout.svelte';
+import Layout from './Layout/Layout.svelte';
 export let name;

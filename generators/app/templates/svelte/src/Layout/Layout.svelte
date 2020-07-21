@@ -10,11 +10,11 @@
 
 <% if (typescript) { -%>
 <script lang="ts">
-  <%- include('../../_specificities/svelte/typescript/separation/src/_Layout.ts'); -%>
+  <%- include('../../../_specificities/svelte/typescript/separation/src/Layout/_Layout.ts'); -%>
 </script>
 <% } else { -%>
 <script>
-  <%- include('../../_specificities/svelte/javascript/separation/src/_Layout.js'); -%>
+  <%- include('../../../_specificities/svelte/javascript/separation/src/Layout/_Layout.js'); -%>
 </script>
 <% } -%>
 
@@ -39,11 +39,11 @@
 
 <% if (sass) { -%>
 <style lang="scss">
-  <%- include('../../_specificities/svelte/sass/separation/src/_Layout.scss'); -%>
+  <%- include('../../../_specificities/svelte/sass/separation/src/Layout/_Layout.scss'); -%>
 </style>
 <% } else { -%>
 <style>
-  <%- include('../../_specificities/svelte/css/separation/src/_Layout.css'); -%>
+  <%- include('../../../_specificities/svelte/css/separation/src/Layout/_Layout.css'); -%>
 </style>
 <% } -%>
 
