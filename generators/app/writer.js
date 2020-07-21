@@ -15,12 +15,27 @@ module.exports = class Writer {
 
         const prepParams = this._getPreprocessorsParameters(config);
         const params = {
-          project_name: config.get('project-name'),
-          package_name: normalizer.normalizePackageName(config.get('project-name')),
-          css_reset: config.get('css-reset'),
-          ...prepParams,
-        }
+            project_name: config.get('project-name'),
+            package_name: normalizer.normalizePackageName(config.get('project-name')),
+            css_reset: config.get('css-reset'),
+            ...prepParams,
+        };
         gen.fs.copyTpl(gen.templatePath(templateRoot), gen.destinationPath('.'), params);
+
+        const projectType = this._getType(gen);
+        const styleType = prepParams.sass ? 'sass' : 'css';
+        const scriptType = prepParams.typescript ? 'typescript' : 'javascript';
+
+        gen.fs.copy(
+            gen.templatePath(`_specificities/${projectType}/${styleType}/required`),
+            gen.destinationPath('.')
+        );
+
+        gen.fs.copyTpl(
+            gen.templatePath(`_specificities/${projectType}/${scriptType}/required`),
+            gen.destinationPath('.'),
+            params
+        );
 
         if (prepParams.has_preprocessors) {
             gen.fs.copyTpl(
@@ -29,21 +44,6 @@ module.exports = class Writer {
                 {
                     ...prepParams,
                 }
-            );
-
-            const projectType = this._getType(gen);
-            const styleType = prepParams.sass ? 'sass' : 'css';
-            const scriptType = prepParams.typescript ? 'typescript' : 'javascript';
-
-            gen.fs.copy(
-                gen.templatePath(`_specificities/${projectType}/${styleType}/required`),
-                gen.destinationPath('.')
-            );
-
-            gen.fs.copyTpl(
-                gen.templatePath(`_specificities/${projectType}/${scriptType}/required`),
-                gen.destinationPath('.'),
-                params
             );
 
             if (prepParams.separation) {
