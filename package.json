@@ -50,6 +50,6 @@
             "git add"
         ]
     },
-    "repository": "Nokorbis/generator-svalter",
+    "repository": "Nokorbis/svalter",
     "license": "Apache-2.0"
 }
