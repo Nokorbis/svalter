@@ -20,11 +20,11 @@ module.exports = class Writer {
             package_name: normalizer.normalizePackageName(config.get('project-name')),
             css_reset: config.get('css-reset'),
             paths: {
-              partials: {
-                styles: gen.templatePath('_partials/styles_tag.ejs'),
-                scripts: gen.templatePath('_partials/scripts_tag.ejs')
-              },
-              specs: gen.templatePath(`_specificities/${templateRoot}`)
+                partials: {
+                    styles: gen.templatePath('_partials/styles_tag.ejs'),
+                    scripts: gen.templatePath('_partials/scripts_tag.ejs'),
+                },
+                specs: gen.templatePath(`_specificities/${templateRoot}`),
             },
             ...prepParams,
         };
@@ -39,7 +39,7 @@ module.exports = class Writer {
         this._copyRequiredSpecificity(gen, projectType, scriptType, params);
 
         if (prepParams.has_preprocessors) {
-            this._copyCommonStructure(gen, 'svelte.config.js', prepParams);
+            this._copyCommonStructure(gen, 'svelte.config.js', prepParams, this._getConfigRoot(gen));
 
             if (prepParams.separation) {
                 this._copySeparatedSpecificity(gen, projectType, styleType);
@@ -60,8 +60,8 @@ module.exports = class Writer {
         );
     }
 
-    _copyCommonStructure(gen, path, prepParams) {
-        this._copyTemplatedStructure(gen, `_common/${path}`, prepParams, `./${path}`);
+    _copyCommonStructure(gen, path, prepParams, targetFolder = '.') {
+        this._copyTemplatedStructure(gen, `_common/${path}`, prepParams, `${targetFolder}/${path}`);
     }
 
     _copyStructure(gen, sourcePath, targetPath = '.') {
@@ -82,6 +82,7 @@ module.exports = class Writer {
     _getPreprocessorsParameters(config) {
         const preprocessors = config.get('support-preprocessors');
         return {
+            project_type: config.get('project-type'),
             preprocessors: preprocessors,
             has_preprocessors: preprocessors.length > 0,
             sass: preprocessors.includes('sass'),
@@ -114,6 +115,11 @@ module.exports = class Writer {
     _getStaticFolder(generator) {
         const type = this._getType(generator);
         return projectStructure[type].static_dir;
+    }
+
+    _getConfigRoot(generator) {
+        const type = this._getType(generator);
+        return projectStructure[type].config_root;
     }
 
     _getStylesFolder(generator) {
