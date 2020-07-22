@@ -10,13 +10,11 @@ npm install -g yo
 npm install -g generator-svalter
 ```
 
-Then generate your new project:
+## Supported "templates"
 
-```bash
-mkdir your-project
-cd your-project
-yo svalter [project_name] [options...]
-```
+- **Svelte** : (javascript || typescript) && (css || scss)
+- **Sapper** : javascript && (css || scss)
+- **Component library** : (javascript || typescript) && (css || scss)
 
 ## Planned features
 
@@ -24,7 +22,17 @@ yo svalter [project_name] [options...]
 - Component generation (according to the style/script/separation configuration)
 - Script generation (models, services, actions) (according to script configuration)
 
-## Available options
+## Project generation
+
+```bash
+mkdir your-project
+cd your-project
+yo svalter [project_name] [options...]
+```
+
+
+
+### Available options
 
 /!\ Warning : TypeScript isn't actually supported yet for sapper
 

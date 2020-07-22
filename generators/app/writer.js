@@ -1,6 +1,7 @@
 'use strict';
 const projectStructure = require('./project_structures.js');
 const normalizer = new (require('./normalizer.js'))();
+const fs = require('fs');
 
 module.exports = class Writer {
     write(gen) {
@@ -41,13 +42,13 @@ module.exports = class Writer {
     }
 
     _copySeparatedSpecificity(gen, projectType, specType) {
-        this._copyStructure(gen, `_specificities/${projectType}/${specType}/separation`);
+        this._copyStructure(gen, `_specificities/${projectType}/${specType}/separation/`);
     }
 
     _copyRequiredSpecificity(gen, projectType, specType, params = {}) {
         this._copyTemplatedStructure(
             gen,
-            `_specificities/${projectType}/${specType}/required`,
+            `_specificities/${projectType}/${specType}/required/`,
             params
         );
     }
@@ -58,14 +59,15 @@ module.exports = class Writer {
 
     _copyStructure(gen, sourcePath, targetPath = '.') {
         const absPath = gen.templatePath(sourcePath);
-        if (gen.fs.exists(absPath)) {
+        if (fs.existsSync(absPath)) {
             gen.fs.copy(absPath, gen.destinationPath(targetPath));
         }
     }
 
     _copyTemplatedStructure(gen, sourcePath, params = {}, targetPath = '.') {
         const absPath = gen.templatePath(sourcePath);
-        if (gen.fs.exists(absPath)) {
+
+        if (fs.existsSync(absPath)) {
             gen.fs.copyTpl(absPath, gen.destinationPath(targetPath), params);
         }
     }
