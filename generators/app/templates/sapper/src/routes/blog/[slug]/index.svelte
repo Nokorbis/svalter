@@ -17,7 +17,6 @@
 	export let post;
 </script>
 
-
 <svelte:head>
 	<title>{post.title}</title>
 </svelte:head>
@@ -28,24 +27,4 @@
 	{@html post.html}
 </div>
 
-<% if (separation) { -%>
-
-<% if (sass) { -%>
-<style src="./_index.scss"></style>
-<% } else { -%>
-<style src="./_index.css"></style>
-<% } -%>
-
-<% } else { -%>
-
-<% if (sass) { -%>
-<style lang="scss">
-  <%- include('../../../../../_specificities/sapper/sass/separation/src/routes/blog/[slug]/_index.scss'); -%>
-</style>
-<% } else { -%>
-<style>
-  <%- include('../../../../../_specificities/sapper/css/separation/src/routes/blog/[slug]/_index.css'); -%>
-</style>
-<% } -%>
-
-<% } -%>
+<%- include(paths.partials.styles, {filename: '_index', folder: 'src/routes/blog/[slug]'}); %>

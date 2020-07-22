@@ -18,25 +18,5 @@
 	<pre>{error.stack}</pre>
 {/if}
 
-<% if (separation) { -%>
-
-<% if (sass) { -%>
-<style src="./_error.scss"></style>
-<% } else { -%>
-<style src="./_error.css"></style>
-<% } -%>
-
-<% } else { -%>
-
-<% if (sass) { -%>
-<style lang="scss">
-  <%- include('../../../_specificities/sapper/sass/separation/src/routes/_error.scss'); -%>
-</style>
-<% } else { -%>
-<style>
-  <%- include('../../../_specificities/sapper/css/separation/src/routes/_error.css'); -%>
-</style>
-<% } -%>
-
-<% } -%>
+<%- include(paths.partials.styles, {filename: '_error', folder: 'src/routes'}); %>
 

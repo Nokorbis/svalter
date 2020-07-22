@@ -1,21 +1,21 @@
 <% if (separation) { -%>
 
     <% if (typescript) { -%>
-        <script src="./<%= filename %>.ts"></script>
+<script src="./<%= filename %>.ts"></script>
     <% } else { -%>
-        <script src="./<%= filename %>.js"></script>
+<script src="./<%= filename %>.js"></script>
     <% } -%>
 
 <% } else { -%>
 
     <% if (typescript) { -%>
-        <script lang="ts">
-            <%- include(paths.specs + `/typescript/separation/${folder}/${filename}.ts`); -%>
-        </script>
+<script lang="ts">
+    <%- include(paths.specs + `/typescript/separation/${folder}/${filename}.ts`); -%>
+</script>
     <% } else { -%>
-        <script>
-            <%- include(paths.specs + `/javascript/separation/${folder}/${filename}.js`); -%>
-        </script>
+<script>
+    <%- include(paths.specs + `/javascript/separation/${folder}/${filename}.js`); -%>
+</script>
     <% } -%>
 
 <% } -%>

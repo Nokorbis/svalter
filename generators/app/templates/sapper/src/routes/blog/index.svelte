@@ -27,24 +27,4 @@
 	{/each}
 </ul>
 
-<% if (separation) { -%>
-
-<% if (sass) { -%>
-<style src="./_index.scss"></style>
-<% } else { -%>
-<style src="./_index.css"></style>
-<% } -%>
-
-<% } else { -%>
-
-<% if (sass) { -%>
-<style lang="scss">
-  <%- include('../../../../_specificities/sapper/sass/separation/src/routes/blog/_index.scss'); -%>
-</style>
-<% } else { -%>
-<style>
-  <%- include('../../../../_specificities/sapper/css/separation/src/routes/blog/_index.css'); -%>
-</style>
-<% } -%>
-
-<% } -%>
+<%- include(paths.partials.styles, {filename: '_index', folder: 'src/routes/blog'}); %>

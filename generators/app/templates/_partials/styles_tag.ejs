@@ -1,21 +1,21 @@
 <% if (separation) { -%>
 
     <% if (sass) { -%>
-        <style src="./<%= filename %>.scss"></style>
+<style src="./<%= filename %>.scss"></style>
     <% } else { -%>
-        <style src="./<%= filename %>.css"></style>
+<style src="./<%= filename %>.css"></style>
     <% } -%>
 
 <% } else { -%>
 
     <% if (sass) { -%>
-        <style lang="scss">
-            <%- include(paths.specs + `/sass/separation/${folder}/${filename}.scss`); -%>
-        </style>
+<style lang="scss">
+    <%- include(paths.specs + `/sass/separation/${folder}/${filename}.scss`); -%>
+</style>
     <% } else { -%>
-        <style>
-            <%- include(paths.specs + `/css/separation/${folder}/${filename}.css`); -%>
-        </style>
+<style>
+    <%- include(paths.specs + `/css/separation/${folder}/${filename}.css`); -%>
+</style>
     <% } -%>
 
 <% } -%>
