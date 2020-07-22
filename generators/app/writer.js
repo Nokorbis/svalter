@@ -20,43 +20,53 @@ module.exports = class Writer {
             css_reset: config.get('css-reset'),
             ...prepParams,
         };
-        gen.fs.copyTpl(gen.templatePath(templateRoot), gen.destinationPath('.'), params);
+
+        this._copyTemplatedStructure(gen, templateRoot, params);
 
         const projectType = this._getType(gen);
         const styleType = prepParams.sass ? 'sass' : 'css';
         const scriptType = prepParams.typescript ? 'typescript' : 'javascript';
 
-        gen.fs.copy(
-            gen.templatePath(`_specificities/${projectType}/${styleType}/required`),
-            gen.destinationPath('.')
-        );
-
-        gen.fs.copyTpl(
-            gen.templatePath(`_specificities/${projectType}/${scriptType}/required`),
-            gen.destinationPath('.'),
-            params
-        );
+        this._copyRequiredSpecificity(gen, projectType, styleType);
+        this._copyRequiredSpecificity(gen, projectType, scriptType, params);
 
         if (prepParams.has_preprocessors) {
-            gen.fs.copyTpl(
-                gen.templatePath('_common/svelte.config.js'),
-                gen.destinationPath('./svelte.config.js'),
-                {
-                    ...prepParams,
-                }
-            );
+            this._copyCommonStructure(gen, 'svelte.config.js', prepParams);
 
             if (prepParams.separation) {
-                gen.fs.copy(
-                    gen.templatePath(`_specificities/${projectType}/${styleType}/separation`),
-                    gen.destinationPath('.')
-                );
-
-                gen.fs.copy(
-                    gen.templatePath(`_specificities/${projectType}/${scriptType}/separation`),
-                    gen.destinationPath('.')
-                );
+                this._copySeparatedSpecificity(gen, projectType, styleType);
+                this._copySeparatedSpecificity(gen, projectType, scriptType);
             }
+        }
+    }
+
+    _copySeparatedSpecificity(gen, projectType, specType) {
+        this._copyStructure(gen, `_specificities/${projectType}/${specType}/separation`);
+    }
+
+    _copyRequiredSpecificity(gen, projectType, specType, params = {}) {
+        this._copyTemplatedStructure(
+            gen,
+            `_specificities/${projectType}/${specType}/required`,
+            params
+        );
+    }
+
+    _copyCommonStructure(gen, path, prepParams) {
+        this._copyTemplatedStructure(gen, `_common/${path}`, prepParams, `./${path}`);
+    }
+
+    _copyStructure(gen, sourcePath, targetPath = '.') {
+        const absPath = gen.templatePath(sourcePath);
+        if (gen.fs.exists(absPath)) {
+            gen.fs.copy(absPath, gen.destinationPath(targetPath));
+        }
+    }
+
+    _copyTemplatedStructure(gen, sourcePath, params = {}, targetPath = '.') {
+        const absPath = gen.templatePath(sourcePath);
+        if (gen.fs.exists(absPath)) {
+            gen.fs.copyTpl(absPath, gen.destinationPath(targetPath), params);
         }
     }
 
