@@ -1,25 +1,4 @@
-<% if (separation) { -%>
-
-<% if (typescript) { -%>
-<script src="./_Layout.ts"></script>
-<% } else { -%>
-<script src="./_Layout.js"></script>
-<% } -%>
-
-<% } else { -%>
-
-<% if (typescript) { -%>
-<script lang="ts">
-  <%- include('../../../_specificities/svelte/typescript/separation/src/Layout/_Layout.ts'); -%>
-</script>
-<% } else { -%>
-<script>
-  <%- include('../../../_specificities/svelte/javascript/separation/src/Layout/_Layout.js'); -%>
-</script>
-<% } -%>
-
-<% } -%>
-
+<%- include (paths.partials.scripts, {filename: '_Layout', folder: 'src/Layout'}); %>
 
 <main>
   <h1>Hello {name}!</h1>

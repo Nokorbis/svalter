@@ -22,6 +22,7 @@ module.exports = class Writer {
             paths: {
               partials: {
                 styles: gen.templatePath('_partials/styles_tag.ejs'),
+                scripts: gen.templatePath('_partials/scripts_tag.ejs')
               },
               specs: gen.templatePath(`_specificities/${templateRoot}`)
             },
