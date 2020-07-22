@@ -26,25 +26,5 @@
   <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 </main>
 
+<%- include(paths.partials.styles, {filename: '_Layout', folder: 'src/Layout'}); %>
 
-<% if (separation) { -%>
-
-<% if (sass) { -%>
-<style src="./_Layout.scss"></style>
-<% } else { -%>
-<style src="./_Layout.css"></style>
-<% } -%>
-
-<% } else { -%>
-
-<% if (sass) { -%>
-<style lang="scss">
-  <%- include('../../../_specificities/svelte/sass/separation/src/Layout/_Layout.scss'); -%>
-</style>
-<% } else { -%>
-<style>
-  <%- include('../../../_specificities/svelte/css/separation/src/Layout/_Layout.css'); -%>
-</style>
-<% } -%>
-
-<% } -%>

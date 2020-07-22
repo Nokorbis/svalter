@@ -19,6 +19,12 @@ module.exports = class Writer {
             project_name: config.get('project-name'),
             package_name: normalizer.normalizePackageName(config.get('project-name')),
             css_reset: config.get('css-reset'),
+            paths: {
+              partials: {
+                styles: gen.templatePath('_partials/styles_tag.ejs'),
+              },
+              specs: gen.templatePath(`_specificities/${templateRoot}`)
+            },
             ...prepParams,
         };
 
