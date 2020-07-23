@@ -19,7 +19,6 @@ npm install -g generator-svalter
 ## Planned features
 
 - Page generation for sapper
-- Component generation (according to the style/script/separation configuration)
 - Script generation (models, services, actions) (according to script configuration)
 
 ## Project generation
@@ -31,10 +30,8 @@ yo svalter [project_name] [options...]
 ```
 
 
-
 ### Available options
 
-/!\ Warning : TypeScript isn't actually supported yet for sapper
 
 | Option | Description |
 | ---:   | ---         |
@@ -48,6 +45,19 @@ yo svalter [project_name] [options...]
 | --**no-typescript** *or* --**no-ts** | Does **not add TypeScript support** to your project *(Skips the TypeScript question)* | 
 | --**sass** *or* --**scss** | **Adds SASS support** to your project *(Skips the SASS question)* |
 | --**no-sass** *or* --**no-scss** | Does **not add SASS support** to your project *(Skips the SASS question)* |
+
+## Component generation
+
+```bash
+#in a svalter project
+yo svalter:component [component-name] [options...]
+```
+
+### Available options
+
+| Option | Description |
+| ---:   | ---         |
+| --**folder**=*path* | Put the component in a specific folder (which will be under /src/components) |
 
 ## License
 
