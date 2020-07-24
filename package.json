@@ -33,8 +33,10 @@
         "npm": ">= 10.0.0"
     },
     "dependencies": {
-        "yeoman-generator": "^4.11.0",
         "chalk": "^2.1.0",
+        "gulp-beautify": "^3.0.0",
+        "gulp-if": "^3.0.0",
+        "yeoman-generator": "^4.11.0",
         "yosay": "^2.0.1"
     },
     "jest": {

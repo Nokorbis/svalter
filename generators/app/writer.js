@@ -1,10 +1,40 @@
 'use strict';
 const projectStructure = require('./project_structures.js');
 const normalizer = new (require('./normalizer.js'))();
+const gulpif = require('gulp-if');
+const beautify = require('gulp-beautify').js;
+const beautify_css = require('gulp-beautify').css;
+const beautify_html = require('gulp-beautify').html;
+// https://github.com/tarunc/gulp-jsbeautifier
+// https://github.com/beautify-web/js-beautify
 const fs = require('fs');
+
+function isJS(file) {
+    return ['.ts', '.js', '.json'].includes(file.extname);
+}
+
+function isStyle(file) {
+    return ['.css', '.scss'].includes(file.extname);
+}
+
+function isMarkup(file) {
+    return ['.html', '.svelte'].includes(file.extname);
+}
 
 module.exports = class Writer {
     write(gen) {
+        gen.registerTransformStream(
+            gulpif(isJS, beautify({ indent_size: 4, max_preserve_newlines: 2, wrap_line_length: 100 }))
+        );
+        gen.registerTransformStream(
+            gulpif(isStyle, beautify_css({ indent_size: 4, max_preserve_newlines: 1 }))
+        );
+        gen.registerTransformStream(
+            gulpif(
+                isMarkup,
+                beautify_html({ indent_size: 4, max_preserve_newlines: 1, js: { indent_size: 2, wrap_line_length: 100 } })
+            )
+        );
         this._writeProjectStructure(gen);
         this._writeCssReset(gen);
     }
@@ -39,7 +69,12 @@ module.exports = class Writer {
         this._copyRequiredSpecificity(gen, projectType, scriptType, params);
 
         if (prepParams.has_preprocessors) {
-            this._copyCommonStructure(gen, 'svelte.config.js', prepParams, this._getConfigRoot(gen));
+            this._copyCommonStructure(
+                gen,
+                'svelte.config.js',
+                prepParams,
+                this._getConfigRoot(gen)
+            );
 
             if (prepParams.separation) {
                 this._copySeparatedSpecificity(gen, projectType, styleType);

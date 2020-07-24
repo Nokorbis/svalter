@@ -13,5 +13,5 @@
 	</ul>
 </nav>
 
-<%- include(paths.partials.styles, {filename: '_Nav', folder: 'src/components'}); %>
+<%- include(paths.partials.styles, {filename: '_Nav', folder: 'src/components/Nav'}); %>
 
