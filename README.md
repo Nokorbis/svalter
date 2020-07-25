@@ -1,15 +1,6 @@
 # generator-svalter [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > Generator to help you create and manage svelte/sapper application
 
-## Installation
-
-First, install [Yeoman](http://yeoman.io) and generator-svalter using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
-
-```bash
-npm install -g yo
-npm install -g generator-svalter
-```
-
 ## Supported "templates"
 
 - **Svelte** : (javascript || typescript) && (css || scss)
@@ -20,6 +11,15 @@ npm install -g generator-svalter
 
 - Page generation for sapper
 - Script generation (models, services, actions) (according to script configuration)
+
+## Installation
+
+First, install [Yeoman](http://yeoman.io) and generator-svalter using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+
+```bash
+npm install -g yo
+npm install -g generator-svalter
+```
 
 ## Project generation
 
