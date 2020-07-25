@@ -1,4 +1,4 @@
-<% if (separation) { -%>
+<% if (script_separation) { -%>
 
 <% if (typescript) { -%>
 <script src="./_<%= componentname %>.ts"></script>
@@ -22,7 +22,7 @@
 
 <p><%= componentname %></p>
 
-<% if (separation) { -%>
+<% if (style_separation) { -%>
 
 <% if (sass) { -%>
 <style src="./_<%= componentname %>.scss"></style>

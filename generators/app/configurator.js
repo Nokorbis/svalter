@@ -41,25 +41,24 @@ module.exports = class Configurator {
 
     _getSupportPreprocessors(generator) {
         const answs = generator.answers['support-preprocessors'];
+        const options = generator.options;
 
         const supported = [];
-        if (
-            generator.options.typescript != null ||
-            (answs != null && answs.includes('typescript'))
-        ) {
+        if (options['typescript'] === true || (answs != null && answs.includes('typescript'))) {
             supported.push('typescript');
         }
 
-        if (generator.options.sass != null || (answs != null && answs.includes('sass'))) {
+        if (options['sass'] === true || (answs != null && answs.includes('sass'))) {
             supported.push('sass');
         }
 
-        if (
-            generator.options.separation != null ||
-            (answs != null && answs.includes('separation'))
-        ) {
-            supported.push('separation');
+        if (options['style-separation'] === true || (answs != null && answs.includes('style-separation'))) {
+            supported.push('style-separation');
         }
+
+      if (options['script-separation'] === true || (answs != null && answs.includes('script-separation'))) {
+        supported.push('script-separation');
+      }
 
         return supported;
     }

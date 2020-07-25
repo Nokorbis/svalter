@@ -43,13 +43,34 @@ module.exports = function(generator) {
             name: 'support-preprocessors',
             message: 'Do you want your project to support some preprocessors ?',
             choices: [
-                { name: 'Separated component files (markup + script + style)', value: 'separation'},
+                {
+                    name: 'Separates styles from component template',
+                    value: 'style-separation',
+                },
+                {
+                    name: 'Separates scripts from component template',
+                    value: 'script-separation',
+                },
                 { name: 'TypeScript', value: 'typescript' },
                 { name: 'SASS', value: 'sass' },
             ],
+            default: function(responses) {
+                const opts = generator.options;
+                return [
+                    'sass',
+                    'typescript',
+                    'style-separation',
+                    'script-separation',
+                ].filter((opt) => opts.includes(opt));
+            },
             when: function(responses) {
-              const opts = generator.options;
-              return opts.typescript == null || opts.sass == null || opts.separation == null;
+                const opts = generator.options;
+                return (
+                    opts.typescript == null ||
+                    opts.sass == null ||
+                    opts['style-separation'] == null ||
+                    opts['script-separation'] == null
+                );
             },
         },
         {

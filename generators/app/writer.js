@@ -13,8 +13,14 @@ module.exports = class Writer {
     }
 
     _writePrettierConfig(gen) {
-        gen.fs.copy(gen.templatePath('_common/prettier/.prettierrc.json'), gen.destinationPath('./.prettierrc.json'));
-        gen.fs.copy(gen.templatePath('_common/prettier/.prettierignore'), gen.destinationPath('./.prettierignore'));
+        gen.fs.copy(
+            gen.templatePath('_common/prettier/.prettierrc.json'),
+            gen.destinationPath('./.prettierrc.json')
+        );
+        gen.fs.copy(
+            gen.templatePath('_common/prettier/.prettierignore'),
+            gen.destinationPath('./.prettierignore')
+        );
     }
 
     _writeProjectStructure(gen) {
@@ -54,8 +60,10 @@ module.exports = class Writer {
                 this._getConfigRoot(gen)
             );
 
-            if (prepParams.separation) {
+            if (prepParams.style_separation) {
                 this._copySeparatedSpecificity(gen, projectType, styleType);
+            }
+            if (prepParams.script_separation) {
                 this._copySeparatedSpecificity(gen, projectType, scriptType);
             }
         }
@@ -100,7 +108,8 @@ module.exports = class Writer {
             has_preprocessors: preprocessors.length > 0,
             sass: preprocessors.includes('sass'),
             typescript: preprocessors.includes('typescript'),
-            separation: preprocessors.includes('separation'),
+            style_separation: preprocessors.includes('style-separation'),
+            script_separation: preprocessors.includes('script-separation'),
         };
     }
 

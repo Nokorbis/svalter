@@ -38,11 +38,18 @@ module.exports = [
         },
     },
     {
-        name: 'separation',
+        name: 'style-separation',
         config: {
-          desc: 'Defaults component creation to separated files (markup + script + style)',
-          type: Boolean,
-        }
+            desc: 'Separates component template from its style',
+            type: Boolean,
+        },
+    },
+    {
+        name: 'script-separation',
+        config: {
+            desc: 'Separates component template from its script',
+            type: Boolean,
+        },
     },
     {
         name: 'css-reset',

@@ -44,34 +44,38 @@ module.exports = class extends Generator {
             folder += customFolder;
         }
 
-        if (config.separation) {
+        if (config.style_separation || config.script_separation) {
             if (!folder.endsWith('/')) {
                 folder += '/';
             }
             folder += name;
 
-            if (config.typescript) {
-                this.fs.copy(
-                    this.templatePath('Component.ts'),
-                    this.destinationPath(`${folder}/_${name}.ts`)
-                );
-            } else {
-                this.fs.copy(
-                    this.templatePath('Component.js'),
-                    this.destinationPath(`${folder}/_${name}.js`)
-                );
+            if (config.script_separation) {
+                if (config.typescript) {
+                    this.fs.copy(
+                        this.templatePath('Component.ts'),
+                        this.destinationPath(`${folder}/_${name}.ts`)
+                    );
+                } else {
+                    this.fs.copy(
+                        this.templatePath('Component.js'),
+                        this.destinationPath(`${folder}/_${name}.js`)
+                    );
+                }
             }
 
-            if (config.sass) {
-                this.fs.copy(
-                    this.templatePath('Component.scss'),
-                    this.destinationPath(`${folder}/_${name}.scss`)
-                );
-            } else {
-                this.fs.copy(
-                    this.templatePath('Component.css'),
-                    this.destinationPath(`${folder}/_${name}.css`)
-                );
+            if (config.style_separation) {
+                if (config.sass) {
+                    this.fs.copy(
+                        this.templatePath('Component.scss'),
+                        this.destinationPath(`${folder}/_${name}.scss`)
+                    );
+                } else {
+                    this.fs.copy(
+                        this.templatePath('Component.css'),
+                        this.destinationPath(`${folder}/_${name}.css`)
+                    );
+                }
             }
         }
 
@@ -92,7 +96,8 @@ module.exports = class extends Generator {
     _getConfiguration() {
         const preprocessors = this.config.get('support-preprocessors');
         return {
-            separation: preprocessors.includes('separation'),
+            script_separation: preprocessors.includes('script-separation'),
+            style_separation: preprocessors.includes('style-separation'),
             sass: preprocessors.includes('sass'),
             typescript: preprocessors.includes('typescript'),
         };
