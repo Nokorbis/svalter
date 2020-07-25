@@ -61,7 +61,7 @@ module.exports = function(generator) {
                     'typescript',
                     'style-separation',
                     'script-separation',
-                ].filter((opt) => opts.includes(opt));
+                ].filter((opt) => opts[opt] === true);
             },
             when: function(responses) {
                 const opts = generator.options;
