@@ -47,4 +47,9 @@ module.exports = class extends Generator {
     install() {
         installer.install(this);
     }
+
+    end() {
+        this.log('Running prettier to clean files');
+        this.spawnCommandSync('npx', ['prettier', '--write', '.', '--loglevel', 'warn']);
+    }
 };

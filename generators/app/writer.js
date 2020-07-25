@@ -8,12 +8,13 @@ module.exports = class Writer {
     write(gen) {
         this._writeProjectStructure(gen);
         this._writeCssReset(gen);
-        this._copyPrettierConfig(gen);
+        this._writePrettierConfig(gen);
         this._updatePackage(gen);
     }
 
-    _copyPrettierConfig(gen) {
-        gen.fs.copy(gen.templatePath('_common/prettier'), gen.destinationPath('.'));
+    _writePrettierConfig(gen) {
+        gen.fs.copy(gen.templatePath('_common/prettier/.prettierrc.json'), gen.destinationPath('./.prettierrc.json'));
+        gen.fs.copy(gen.templatePath('_common/prettier/.prettierignore'), gen.destinationPath('./.prettierignore'));
     }
 
     _writeProjectStructure(gen) {
