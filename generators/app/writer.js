@@ -1,42 +1,19 @@
 'use strict';
 const projectStructure = require('./project_structures.js');
 const normalizer = new (require('./normalizer.js'))();
-const gulpif = require('gulp-if');
-const beautify = require('gulp-beautify').js;
-const beautify_css = require('gulp-beautify').css;
-const beautify_html = require('gulp-beautify').html;
-// https://github.com/tarunc/gulp-jsbeautifier
-// https://github.com/beautify-web/js-beautify
+
 const fs = require('fs');
-
-function isJS(file) {
-    return ['.ts', '.js', '.json'].includes(file.extname);
-}
-
-function isStyle(file) {
-    return ['.css', '.scss'].includes(file.extname);
-}
-
-function isMarkup(file) {
-    return ['.html', '.svelte'].includes(file.extname);
-}
 
 module.exports = class Writer {
     write(gen) {
-        gen.registerTransformStream(
-            gulpif(isJS, beautify({ indent_size: 4, max_preserve_newlines: 2, wrap_line_length: 100 }))
-        );
-        gen.registerTransformStream(
-            gulpif(isStyle, beautify_css({ indent_size: 4, max_preserve_newlines: 1 }))
-        );
-        gen.registerTransformStream(
-            gulpif(
-                isMarkup,
-                beautify_html({ indent_size: 4, max_preserve_newlines: 1, js: { indent_size: 2, wrap_line_length: 100 } })
-            )
-        );
         this._writeProjectStructure(gen);
         this._writeCssReset(gen);
+        this._copyPrettierConfig(gen);
+        this._updatePackage(gen);
+    }
+
+    _copyPrettierConfig(gen) {
+        gen.fs.copy(gen.templatePath('_common/prettier'), gen.destinationPath('.'));
     }
 
     _writeProjectStructure(gen) {
@@ -160,5 +137,32 @@ module.exports = class Writer {
     _getStylesFolder(generator) {
         const staticFolder = this._getStaticFolder(generator);
         return `${staticFolder}/styles`;
+    }
+
+    _updatePackage(generator) {
+        const prepParams = this._getPreprocessorsParameters(generator.config);
+        const file =
+            'library' === prepParams.project_type ? 'examples/package.json' : 'package.json';
+        const pkg = { scripts: {}, devDependencies: {}, dependencies: {} };
+
+        if (prepParams.has_preprocessors) {
+            pkg.devDependencies['svelte-preprocess'] = '4.0.8';
+
+            if (prepParams.sass) {
+                pkg.devDependencies['sass'] = '^1.26.10';
+                pkg.devDependencies['postcss'] = '^7.0.32';
+            }
+
+            if (prepParams.typescript) {
+                pkg.scripts['validate'] = 'svelte-check';
+                pkg.devDependencies['typescript'] = '^3.9.7';
+                pkg.devDependencies['@rollup/plugin-typescript'] = '^5.0.2';
+                pkg.devDependencies['svelte-check'] = '^0.1.56';
+                pkg.devDependencies['tslib'] = '^2.0.0';
+                pkg.devDependencies['@tsconfig/svelte'] = '^1.0.3';
+            }
+        }
+
+        generator.fs.extendJSON(generator.destinationPath(file), pkg);
     }
 };

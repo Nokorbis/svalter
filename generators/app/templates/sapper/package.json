@@ -3,9 +3,6 @@
     "description": "<%= project_name %> app",
     "version": "0.0.1",
     "scripts": {
-        <% if (typescript) { -%>,
-        "validate": "svelte-check",
-        <% } -%>
         "dev": "sapper dev",
         "build": "sapper build --legacy",
         "export": "sapper export --legacy",
@@ -15,7 +12,7 @@
         "test": "run-p --race dev cy:run"
     },
     "dependencies": {
-        "compression": "^1.7.1",
+        "compression": "^1.7.4",
         "polka": "next",
         "sirv": "^1.0.1"
     },
@@ -24,29 +21,15 @@
         "sapper": "^0.27.16",
         "svelte": "^3.24.0",
         "@babel/core": "^7.0.0",
-        "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-        "@babel/plugin-transform-runtime": "^7.0.0",
-        "@babel/preset-env": "^7.0.0",
-        "@babel/runtime": "^7.0.0",
-        "@rollup/plugin-babel": "^5.0.4",
-        "@rollup/plugin-commonjs": "^13.0.0",
-        "@rollup/plugin-node-resolve": "^8.1.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel/plugin-transform-runtime": "^7.10.5",
+        "@babel/preset-env": "^7.10.4",
+        "@babel/runtime": "^7.10.5",
+        "@rollup/plugin-babel": "^5.1.0",
+        "@rollup/plugin-commonjs": "^14.0.0",
+        "@rollup/plugin-node-resolve": "^8.4.0",
         "@rollup/plugin-replace": "^2.3.3",
-        "rollup": "^2.21.0",
-        <% if (has_preprocessors) { -%>
-        "svelte-preprocess": "^4.0.8",
-        <% if (sass) { -%>
-        "sass": "^1.26.10",
-        "postcss": "^7.0.32",
-        <% } -%>
-        <% if (typescript) { -%>
-        "typescript": "^3.9.7",
-        "@rollup/plugin-typescript": "^5.0.2",
-        "svelte-check": "^0.1.55",
-        "tslib": "^2.0.0",
-        "@tsconfig/svelte": "^1.0.2"
-        <% } -%>
-        <% } -%>
+        "rollup": "^2.23.0",
         "rollup-plugin-svelte": "^5.2.3",
         "rollup-plugin-terser": "^5.3.0"
     }

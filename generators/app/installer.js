@@ -2,7 +2,8 @@
 
 module.exports = class Installer {
     install(generator) {
-        const type = generator.config.get('project-type');
+        generator.npmInstall(['prettier', 'prettier-plugin-svelte'], { 'save-dev': true });
         generator.installDependencies({ npm: true, bower: false, yarn: false });
+        generator.spawnCommandSync('npx', ['prettier', '--write', '.']);
     }
 };
