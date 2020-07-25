@@ -42,26 +42,29 @@ module.exports = function(generator) {
             type: 'checkbox',
             name: 'support-preprocessors',
             message: 'Do you want your project to support some preprocessors ?',
-            choices: [
-                {
-                    name: 'Separates styles from component template',
-                    value: 'style-separation',
-                },
-                {
-                    name: 'Separates scripts from component template',
-                    value: 'script-separation',
-                },
-                { name: 'TypeScript', value: 'typescript' },
-                { name: 'SASS', value: 'sass' },
-            ],
+            choices: function(answers) {
+                const choices = [
+                    {
+                        name: 'Separates styles from component template',
+                        value: 'style-separation',
+                    },
+                    {
+                        name: 'Separates scripts from component template',
+                        value: 'script-separation',
+                    },
+                    { name: 'SASS', value: 'sass' },
+                ];
+
+                if (answers['project-type'] !== 'sapper' && generator.options['sapper'] !== true) {
+                    choices.push({ name: 'TypeScript', value: 'typescript' });
+                }
+                return choices;
+            },
             default: function(responses) {
                 const opts = generator.options;
-                return [
-                    'sass',
-                    'typescript',
-                    'style-separation',
-                    'script-separation',
-                ].filter((opt) => opts[opt] === true);
+                return ['sass', 'typescript', 'style-separation', 'script-separation'].filter(
+                    (opt) => opts[opt] === true
+                );
             },
             when: function(responses) {
                 const opts = generator.options;
