@@ -1,0 +1,28 @@
+{
+    "choices": {
+        "project-type": "svelte",
+        "project-name": "simple-svelte",
+        "support-preprocessors": [],
+        "css-reset": "none"
+    },
+    "filesToCreate": [
+        "rollup.config.js",
+        "package.json",
+        "public/index.html",
+        "src/App.svelte",
+        "src/Layout/Layout.svelte"
+    ],
+    "filesNotToCreate": ["src/_App.js", "src/_App.css", "src/_App.ts", "src/_App.scss"],
+    "filesContent": [
+        {
+            "filePath": "src/App.svelte",
+            "content": "export let name;"
+        }
+    ],
+    "filesNoContent": [
+        {
+            "filePath": "src/App.svelte",
+            "content": "<style lang=\"scss\" global>"
+        }
+    ]
+}
