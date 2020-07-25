@@ -1,5 +1,9 @@
 # Changelogs
 
+### 0.3.0
+
+-   Split the template separation for styles and scripts
+
 ### 0.2.2
 
 -   Remove beautify to format files
