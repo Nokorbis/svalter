@@ -4,23 +4,28 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
 describe('generator-svalter:app', () => {
-    describe('simple svelte', function() {
+    describe('simple svelte', function () {
         const simpleSvelteScenario = require('./_scenarios/simple-svelte.json');
         executeScenario(simpleSvelteScenario);
     });
 
-    describe('complete svelte', function() {
+    describe('complete svelte', function () {
         const scenario = require('./_scenarios/complete-svelte.json');
         executeScenario(scenario);
     });
 
-    describe('simple library', function() {
+    describe('simple library', function () {
         const scenario = require('./_scenarios/simple-library.json');
         executeScenario(scenario);
     });
 
-    describe('complete library', function() {
+    describe('complete library', function () {
         const scenario = require('./_scenarios/complete-library.json');
+        executeScenario(scenario);
+    });
+
+    describe('simple sapper', function () {
+        const scenario = require('./_scenarios/simple-sapper.json');
         executeScenario(scenario);
     });
 });
