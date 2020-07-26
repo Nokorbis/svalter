@@ -16,35 +16,39 @@ describe('generator-svalter:app', () => {
 });
 
 function executeScenario(scenario) {
-  beforeAll(() => {
-    return helpers.run(path.join(__dirname, '../generators/app')).withPrompts(scenario.choices);
-  });
-
-  if (scenario.filesToCreate) {
-    it('should create files', () => {
-      assert.file(scenario.filesToCreate);
+    beforeAll(() => {
+        return helpers.run(path.join(__dirname, '../generators/app')).withPrompts(scenario.choices);
     });
-  }
 
-  if (scenario.filesNotToCreate) {
-    it('should not create some files', () => {
-      assert.noFile(scenario.filesNotToCreate);
-    });
-  }
+    if (scenario.filesToCreate) {
+        it('should create files', () => {
+            assert.file(scenario.filesToCreate);
+        });
+    }
 
-  if (scenario.filesContent) {
-    it('should contain some data', () => {
-      for (let entry of scenario.filesContent) {
-        assert.fileContent(entry.filePath, entry.content);
-      }
-    });
-  }
+    if (scenario.filesNotToCreate) {
+        it('should not create some files', () => {
+            assert.noFile(scenario.filesNotToCreate);
+        });
+    }
 
-  if (scenario.filesNoContent) {
-    it('should not contain some data', () => {
-      for (let entry of scenario.filesNoContent) {
-        assert.noFileContent(entry.filePath, entry.content);
-      }
-    });
-  }
+    if (scenario.filesContent) {
+        it('should contain some data', () => {
+            for (let entry of scenario.filesContent) {
+                for (let content of entry.contents) {
+                    assert.fileContent(entry.filePath, content);
+                }
+            }
+        });
+    }
+
+    if (scenario.filesNoContent) {
+        it('should not contain some data', () => {
+            for (let entry of scenario.filesNoContent) {
+                for (let content of entry.contents) {
+                    assert.noFileContent(entry.filePath, content);
+                }
+            }
+        });
+    }
 }

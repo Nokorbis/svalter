@@ -19,21 +19,21 @@
     "filesContent": [
         {
             "filePath": "src/App.svelte",
-            "content": "<style lang=\"scss\" global>"
+            "contents": ["<style lang=\"scss\" global>"]
         },
         {
             "filePath": "src/Layout/Layout.svelte",
-            "content": "<script src=\"./_Layout.ts\">"
+            "contents": ["<script src=\"./_Layout.ts\">"]
         },
         {
             "filePath": "public/index.html",
-            "content": "<link rel=\"stylesheet\" href=\"/styles/normalize.css\" />"
+            "contents": ["<link rel=\"stylesheet\" href=\"/styles/normalize.css\" />"]
         }
     ],
     "filesNoContent": [
         {
             "filePath": "src/App.svelte",
-            "content": "export let name;"
+            "contents": ["export let name;"]
         }
     ]
 }

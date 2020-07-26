@@ -16,13 +16,13 @@
     "filesContent": [
         {
             "filePath": "src/App.svelte",
-            "content": "export let name;"
+            "contents": ["export let name;"]
         }
     ],
     "filesNoContent": [
         {
             "filePath": "src/App.svelte",
-            "content": "<style lang=\"scss\" global>"
+            "contents": ["<style lang=\"scss\" global>"]
         }
     ]
 }
