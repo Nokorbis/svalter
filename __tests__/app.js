@@ -13,6 +13,11 @@ describe('generator-svalter:app', () => {
         const scenario = require('./_scenarios/complete-svelte.json');
         executeScenario(scenario);
     });
+
+    describe('simple library', function() {
+        const scenario = require('./_scenarios/simple-library.json');
+        executeScenario(scenario);
+    });
 });
 
 function executeScenario(scenario) {

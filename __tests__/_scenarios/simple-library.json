@@ -1,0 +1,31 @@
+{
+    "choices": {
+        "project-type": "library",
+        "project-name": "simple-library",
+        "support-preprocessors": [],
+        "css-reset": "none"
+    },
+    "filesToCreate": [
+        "examples/rollup.config.js",
+        "examples/package.json",
+        "package.json",
+        "examples/public/index.html",
+        "examples/src/App.svelte",
+        "src/components/ExampleComponent.svelte",
+        "index.js"
+    ],
+    "filesNotToCreate": [
+        "src/components/_ExampleComponent.js",
+        "src/components/_ExampleComponent.css",
+        "src/components/_ExampleComponent.ts",
+        "src/components/_ExampleComponent.scss"
+    ],
+    "filesContent": [
+        {
+            "filePath": "src/components/ExampleComponent.svelte",
+            "contents": ["<h1>Hello simple-library!</h1>"]
+        }
+    ],
+    "filesNoContent": [
+    ]
+}
