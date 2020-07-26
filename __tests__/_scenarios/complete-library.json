@@ -1,0 +1,39 @@
+{
+    "choices": {
+        "project-type": "library",
+        "project-name": "complete-library",
+        "support-preprocessors": ["sass", "style-separation", "typescript", "script-separation"],
+        "css-reset": "sanitize"
+    },
+    "filesToCreate": [
+        "examples/rollup.config.js",
+        "examples/package.json",
+        "package.json",
+        "examples/public/index.html",
+        "examples/src/App.svelte",
+        "src/components/ExampleComponent.svelte",
+        "index.js",
+        "src/components/_ExampleComponent.ts",
+        "src/components/_ExampleComponent.scss"
+    ],
+    "filesNotToCreate": [
+        "src/components/_ExampleComponent.js",
+        "src/components/_ExampleComponent.css"
+    ],
+    "filesContent": [
+        {
+            "filePath": "src/components/ExampleComponent.svelte",
+            "contents": [
+                "<h1>Hello complete-library!</h1>",
+                "<script src=\"./_ExampleComponent.ts\">",
+                "<style src=\"./_ExampleComponent.scss\">"
+            ]
+        }
+    ],
+    "filesNoContent": [
+        {
+            "filePath": "src/components/ExampleComponent.svelte",
+            "contents": ["export let greetings: string"]
+        }
+    ]
+}

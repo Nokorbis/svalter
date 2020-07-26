@@ -1,7 +1,7 @@
 {
     "choices": {
         "project-type": "svelte",
-        "project-name": "simple-svelte",
+        "project-name": "complete-svelte",
         "support-preprocessors": ["sass", "style-separation", "typescript", "script-separation"],
         "css-reset": "normalize"
     },
