@@ -43,10 +43,10 @@ yo svalter [project_name] [options...]
 | --**no-style-separation** | Components' styles will be put in the same file as the markup |
 | --**script-separation** | Components' scripts will be put in a different file for each component |
 | --**no-script-separation** | Components' scripts will be put in the same file as the markup |
-| --**typescript**  *or*  --**ts** | **Adds TypeScript support** to your project *(Skips the TypeScript question)* |
-| --**no-typescript** *or* --**no-ts** | Does **not add TypeScript support** to your project *(Skips the TypeScript question)* | 
-| --**sass** *or* --**scss** | **Adds SASS support** to your project *(Skips the SASS question)* |
-| --**no-sass** *or* --**no-scss** | Does **not add SASS support** to your project *(Skips the SASS question)* |
+| --**typescript**  *or*  --**ts** | **Adds TypeScript support** to your project |
+| --**no-typescript** *or* --**no-ts** | Does **not add TypeScript support** to your project | 
+| --**sass** *or* --**scss** | **Adds SASS support** to your project  |
+| --**no-sass** *or* --**no-scss** | Does **not add SASS support** to your project |
 
 ## Component generation
 
