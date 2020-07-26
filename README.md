@@ -70,7 +70,7 @@ Apache-2.0 © [Nokorbis](https://github.com/Nokorbis)
 [npm-url]: https://npmjs.org/package/generator-svalter
 [travis-image]: https://travis-ci.org/Nokorbis/svalter.svg?branch=master
 [travis-url]: https://travis-ci.org/Nokorbis/svalter
-[daviddm-image]: https://david-dm.org/Nokorbis/generator-svalter.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/Nokorbis/generator-svalter
-[coveralls-image]: https://coveralls.io/repos/Nokorbis/generator-svalter/badge.svg
-[coveralls-url]: https://coveralls.io/r/Nokorbis/generator-svalter
+[daviddm-image]: https://david-dm.org/Nokorbis/svalter.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/Nokorbis/svalter
+[coveralls-image]: https://coveralls.io/repos/Nokorbis/svalter/badge.svg
+[coveralls-url]: https://coveralls.io/r/Nokorbis/svalter
