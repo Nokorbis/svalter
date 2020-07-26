@@ -2,8 +2,8 @@
     "choices": {
         "project-type": "sapper",
         "project-name": "simple-sapper",
-        "support-preprocessors": [],
-        "css-reset": "none"
+        "support-preprocessors": ["sass", "style-separation"],
+        "css-reset": "meyer_reset"
     },
     "filesToCreate": [
         "rollup.config.js",
@@ -14,19 +14,24 @@
         "src/template.html",
         "src/routes/index.svelte",
         "src/routes/_layout.svelte",
-        "src/components/Nav/Nav.svelte"
+        "src/components/Nav/Nav.svelte",
+        "src/assets/styles/variables.scss",
+        "src/routes/_index.scss"
     ],
-    "filesNotToCreate": ["src/assets/styles/variables.scss", "src/routes/_index.scss"],
+    "filesNotToCreate": [],
     "filesContent": [
         {
             "filePath": "src/routes/index.svelte",
             "contents": ["<h1>Great success!</h1>"]
-        }
-    ],
-    "filesNoContent": [
+        },
         {
             "filePath": "src/routes/_layout.svelte",
             "contents": ["<style lang=\"scss\" global>"]
+        },
+        {
+            "filePath": "src/template.html",
+            "contents": ["<link rel=\"stylesheet\" href=\"/styles/meyer_reset.css\" />"]
         }
-    ]
+    ],
+    "filesNoContent": []
 }
