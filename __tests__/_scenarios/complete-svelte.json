@@ -28,6 +28,18 @@
         {
             "filePath": "public/index.html",
             "contents": ["<link rel=\"stylesheet\" href=\"/styles/normalize.css\" />"]
+        },
+        {
+            "filePath": "package.json",
+            "contents": [
+                "svelte-preprocess",
+                "@rollup/plugin-typescript",
+                "sass",
+                "postcss",
+                "typescript",
+                "tslib",
+                "@tsconfig/svelte"
+            ]
         }
     ],
     "filesNoContent": [
