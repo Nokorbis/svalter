@@ -18,6 +18,8 @@ module.exports = class extends Generator {
         options.forEach((option) => {
             this.option(option.name, option.config);
         });
+
+        this.createdFiles = [];
     }
     prompting() {
         // Have Yeoman greet the user.
@@ -51,31 +53,27 @@ module.exports = class extends Generator {
             folder += name;
 
             if (config.script_separation) {
+                let path;
                 if (config.typescript) {
-                    this.fs.copy(
-                        this.templatePath('Component.ts'),
-                        this.destinationPath(`${folder}/_${name}.ts`)
-                    );
+                    path = this.destinationPath(`${folder}/_${name}.ts`);
+                    this.fs.copy(this.templatePath('Component.ts'), path);
                 } else {
-                    this.fs.copy(
-                        this.templatePath('Component.js'),
-                        this.destinationPath(`${folder}/_${name}.js`)
-                    );
+                    path = this.destinationPath(`${folder}/_${name}.js`);
+                    this.fs.copy(this.templatePath('Component.js'), path);
                 }
+                this.createdFiles.push(path);
             }
 
             if (config.style_separation) {
+                let path;
                 if (config.sass) {
-                    this.fs.copy(
-                        this.templatePath('Component.scss'),
-                        this.destinationPath(`${folder}/_${name}.scss`)
-                    );
+                    path = this.destinationPath(`${folder}/_${name}.scss`);
+                    this.fs.copy(this.templatePath('Component.scss'), path);
                 } else {
-                    this.fs.copy(
-                        this.templatePath('Component.css'),
-                        this.destinationPath(`${folder}/_${name}.css`)
-                    );
+                    path = this.destinationPath(`${folder}/_${name}.css`);
+                    this.fs.copy(this.templatePath('Component.css'), path);
                 }
+                this.createdFiles.push(path);
             }
         }
 
@@ -83,14 +81,14 @@ module.exports = class extends Generator {
             folder += '/';
         }
 
-        this.fs.copyTpl(
-            this.templatePath('Component.svelte'),
-            this.destinationPath(`${folder}${name}.svelte`),
-            {
-                ...config,
-                componentname: name,
-            }
-        );
+        const path = this.destinationPath(`${folder}${name}.svelte`);
+
+        this.fs.copyTpl(this.templatePath('Component.svelte'), path, {
+            ...config,
+            componentname: name,
+        });
+
+        this.createdFiles.push(path);
     }
 
     _getConfiguration() {
@@ -135,7 +133,12 @@ module.exports = class extends Generator {
         return name;
     }
 
-    install() {
-        this.installDependencies({ npm: true, bower: false, yarn: false });
+    install() {}
+
+    end() {
+        this.log('Running prettier');
+        this.createdFiles.forEach((path) => {
+            this.spawnCommandSync('npx', ['prettier', '--write', path, '--loglevel', 'warn']);
+        });
     }
 };
