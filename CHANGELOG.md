@@ -1,5 +1,9 @@
 # Changelogs
 
+### 0.3.2
+
+- Add tests to ensure more stability
+
 ### 0.3.0
 
 -   Split the template separation for styles and scripts
