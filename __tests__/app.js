@@ -4,28 +4,33 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
 describe('generator-svalter:app', () => {
-    describe('simple svelte', function () {
-        const simpleSvelteScenario = require('./_scenarios/simple-svelte.json');
+    describe('svelte-simple', function () {
+        const simpleSvelteScenario = require('./_scenarios/svelte-simple.json');
         executeScenario(simpleSvelteScenario);
     });
 
-    describe('complete svelte', function () {
-        const scenario = require('./_scenarios/complete-svelte.json');
+    describe('svelte-complete', function () {
+        const scenario = require('./_scenarios/svelte-complete.json');
         executeScenario(scenario);
     });
 
-    describe('simple library', function () {
-        const scenario = require('./_scenarios/simple-library.json');
+    describe('library-simple', function () {
+        const scenario = require('./_scenarios/library-simple.json');
         executeScenario(scenario);
     });
 
-    describe('complete library', function () {
-        const scenario = require('./_scenarios/complete-library.json');
+    describe('library-complete', function () {
+        const scenario = require('./_scenarios/library-complete.json');
         executeScenario(scenario);
     });
 
-    describe('simple sapper', function () {
-        const scenario = require('./_scenarios/simple-sapper.json');
+    describe('sapper-simple', function () {
+        const scenario = require('./_scenarios/sapper-simple.json');
+        executeScenario(scenario);
+    });
+
+    describe('sapper-external-sass', function () {
+        const scenario = require('./_scenarios/sapper-external-sass.json');
         executeScenario(scenario);
     });
 });

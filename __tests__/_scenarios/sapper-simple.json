@@ -1,0 +1,32 @@
+{
+    "choices": {
+        "project-type": "sapper",
+        "project-name": "simple-sapper",
+        "support-preprocessors": [],
+        "css-reset": "none"
+    },
+    "filesToCreate": [
+        "rollup.config.js",
+        "package.json",
+        "src/client.js",
+        "src/server.js",
+        "src/service-worker.js",
+        "src/template.html",
+        "src/routes/index.svelte",
+        "src/routes/_layout.svelte",
+        "src/components/Nav/Nav.svelte"
+    ],
+    "filesNotToCreate": ["src/assets/styles/variables.scss", "src/routes/_index.scss"],
+    "filesContent": [
+        {
+            "filePath": "src/routes/index.svelte",
+            "contents": ["<h1>Great success!</h1>"]
+        }
+    ],
+    "filesNoContent": [
+        {
+            "filePath": "src/routes/_layout.svelte",
+            "contents": ["<style lang=\"scss\" global>"]
+        }
+    ]
+}
