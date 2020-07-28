@@ -21,6 +21,7 @@ module.exports = class extends Generator {
 
         this.createdFiles = [];
     }
+
     prompting() {
         // Have Yeoman greet the user.
         this.log(yosay(`Welcome to the ${chalk.red('svalter:component')} generator!`));
