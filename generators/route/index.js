@@ -25,9 +25,11 @@ function coalesce(option, answer, defaultValue) {
 
 function adaptNameToPattern(name, patternKey) {
     name = name.toLowerCase();
+    console.log(patternKey);
     if (name.startsWith('[') && name.endsWith(']')) {
         const pattern = patterns.find((p) => p.key === patternKey);
         const regex = pattern ? pattern.regex : null;
+        console.log(regex);
         if (regex != null) {
             name = `[${name.substring(1, name.length - 1)}(${regex})]`;
         }
@@ -101,7 +103,7 @@ module.exports = class extends Generator {
         const customFolder = params.path;
         const name = params.name;
 
-        let folder = formatFolderPath(rootFolder, customFolder, name);
+        let folder = formatFolderPath(rootFolder, customFolder, name, params.pattern);
 
         if (params.page) {
             this._addScript(config, folder);
@@ -148,10 +150,10 @@ module.exports = class extends Generator {
             let path;
             if (config.sass) {
                 path = this.destinationPath(`${folder}/_index.scss`);
-                this.fs.copy(this.templatePath('Component.scss'), path);
+                this.fs.copy(this.templatePath('route.scss'), path);
             } else {
                 path = this.destinationPath(`${folder}/_index.css`);
-                this.fs.copy(this.templatePath('Component.css'), path);
+                this.fs.copy(this.templatePath('route.css'), path);
             }
             this.createdFiles.push(path);
         }
