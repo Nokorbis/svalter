@@ -60,6 +60,22 @@ yo svalter:component [component-name] [options...]
 | ------------------: | ---------------------------------------------------------------------------- |
 | --**folder**=_path_ | Put the component in a specific folder (which will be under /src/components) |
 
+## Route generation
+
+```bash
+#in a svalter project
+yo svalter:route [route-name] [options...]
+```
+
+If your route's name starts with [ and ends with ], you would be prompted to choose a predefined pattern to help you
+
+|                                   Option | Description                                                         |
+| ---------------------------------------: | ------------------------------------------------------------------- |
+|                        --**path**=_path_ | Put the API or the page component into a specific path/folder       |
+|            --**json-api** _or_ --**api** | Create a json api script in this generated route                    |
+| --**page-component** _or_ --\*\*page\*\* | Create a page component in this generated route                     |
+|             --**pattern**=_some_pattern_ | Available patterns: none, numbers, characters, date, time, datetime |  |
+
 ## License
 
 Apache-2.0 © [Nokorbis](https://github.com/Nokorbis)

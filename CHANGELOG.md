@@ -1,5 +1,9 @@
 # Changelogs
 
+### 0.4.0
+
+-   Add route generator
+
 ### 0.3.3
 
 -   Run prettier on created components

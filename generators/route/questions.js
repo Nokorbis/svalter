@@ -35,7 +35,7 @@ module.exports = function (generator) {
         {
             prefix: `${chalk.rgb(250, 110, 5)('Route |')}`,
             type: 'list',
-            name: 'predefined-pattern',
+            name: 'pattern',
             message: 'Do you want to use a predefined pattern in your route?',
             choices: patterns.map(p => { return {name: p.display, value: p.key}}),
             default: 'none',
@@ -66,7 +66,7 @@ module.exports = function (generator) {
         {
             prefix: `${chalk.rgb(250, 110, 5)('Features |')}`,
             type: 'confirm',
-            name: 'page-api',
+            name: 'json-api',
             message: 'Do you want to generate a json api ?',
             default: false,
         },
