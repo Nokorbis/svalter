@@ -1,6 +1,6 @@
 {
     "name": "generator-svalter",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "description": "Generator to help you create and manage svelte/sapper application",
     "homepage": "https://github.com/Nokorbis/svalter",
     "author": {
@@ -31,7 +31,8 @@
         "jest": "^26.1.0"
     },
     "engines": {
-        "npm": ">= 10.0.0"
+        "npm": ">= 6.0.0",
+        "node": ">= 10.0.0"
     },
     "dependencies": {
         "chalk": "^4.1.0",

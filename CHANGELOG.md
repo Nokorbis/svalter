@@ -1,8 +1,12 @@
 # Changelogs
 
+### 0.5.2
+
+-   Attempts to fix npm engines
+
 ### 0.5.1
 
-- Fixes some folder not being published in npm
+-   Fixes some folder not being published in npm
 
 ### 0.5.0
 
