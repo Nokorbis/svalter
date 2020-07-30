@@ -1,4 +1,5 @@
 'use strict';
+
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
@@ -6,22 +7,7 @@ const yosay = require('yosay');
 const patterns = require('./patterns.json');
 const buildQuestions = require('./questions.js');
 const options = require('./options.js');
-
-function coalesce(option, answer, defaultValue) {
-    if (option == null && answer == null) {
-        return defaultValue;
-    }
-    if (typeof option === 'string') {
-        option = option.trim();
-    }
-    if (typeof answer === 'string') {
-        answer = answer.trim();
-    }
-    if (option == null) {
-        return answer;
-    }
-    return option;
-}
+const {coalesce, getConfiguration} = require("../../_shared/utils");
 
 function adaptNameToPattern(name, patternKey) {
     name = name.toLowerCase();
@@ -177,13 +163,7 @@ module.exports = class extends Generator {
     }
 
     _getConfiguration() {
-        const preprocessors = this.config.get('support-preprocessors');
-        return {
-            script_separation: preprocessors.includes('script-separation'),
-            style_separation: preprocessors.includes('style-separation'),
-            sass: preprocessors.includes('sass'),
-            typescript: preprocessors.includes('typescript'),
-        };
+        return getConfiguration(this);
     }
 
     install() {}

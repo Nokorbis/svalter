@@ -1,9 +1,11 @@
 'use strict';
+
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const buildQuestions = require('./questions.js');
 const options = require('./options.js');
+const {coalesce, getConfiguration} = require("../../_shared/utils");
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -93,45 +95,19 @@ module.exports = class extends Generator {
     }
 
     _getConfiguration() {
-        const preprocessors = this.config.get('support-preprocessors');
-        return {
-            script_separation: preprocessors.includes('script-separation'),
-            style_separation: preprocessors.includes('style-separation'),
-            sass: preprocessors.includes('sass'),
-            typescript: preprocessors.includes('typescript'),
-        };
+        return getConfiguration(this);
     }
 
     _getFolder() {
-        if (this.options.folder) {
-            this.options.folder = this.options.folder.trim();
-            if (this.options.folder !== '') {
-                return this.options.folder;
-            }
-        }
-
-        let folder = this.answers['folder'].trim();
-
+        let folder = coalesce(this.options.folder, this.answers['folder'], '');
         if (folder.endsWith('/')) {
             folder = folder.substr(0, folder.length - 1);
         }
-
-        this.answers['folder'] = folder;
         return folder;
     }
 
     _getComponentName() {
-        if (this.options.componentname) {
-            this.options.componentname = this.options.componentname.trim();
-            if (this.options.componentname !== '') {
-                return this.options.componentname;
-            }
-        }
-
-        let name = this.answers['component-name'];
-        name = name.trim();
-
-        return name;
+        return coalesce(this.options.componentname, this.answers['component-name'], 'InvalidName');
     }
 
     install() {}
