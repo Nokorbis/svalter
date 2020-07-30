@@ -110,9 +110,9 @@ yo svalter:action [action-name] [options...]
 | ------------------: | ------------------------------------------------------------------------------ |
 | --**folder**=_path_ | Put the action in a specific folder (which will be under /src/scripts/actions) |
 
-### Considered features
+## Considered features
 
-Recipes generation
+Recipes generation  
 i18n addition
 
 ## License
