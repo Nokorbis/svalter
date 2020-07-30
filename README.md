@@ -110,6 +110,11 @@ yo svalter:action [action-name] [options...]
 | ------------------: | ------------------------------------------------------------------------------ |
 | --**folder**=_path_ | Put the action in a specific folder (which will be under /src/scripts/actions) |
 
+### Considered features
+
+Recipes generation
+i18n addition
+
 ## License
 
 Apache-2.0 © [Nokorbis](https://github.com/Nokorbis)
