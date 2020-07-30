@@ -1,8 +1,6 @@
 'use strict';
 
 const Generator = require('yeoman-generator');
-const chalk = require('chalk');
-const yosay = require('yosay');
 
 const patterns = require('./patterns.json');
 const buildQuestions = require('./questions.js');
@@ -73,8 +71,6 @@ module.exports = class extends Generator {
     }
 
     prompting() {
-        this.log(yosay(`Welcome to the ${chalk.red('svalter:route')} generator!`));
-
         const prompts = buildQuestions(this);
 
         return this.prompt(prompts).then((answers) => {

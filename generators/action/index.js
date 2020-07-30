@@ -10,7 +10,7 @@ module.exports = class extends Generator {
         super(args, opts);
 
         this.argument('name', {
-            desc: 'The name of the model you want to create',
+            desc: 'The name of the action you want to create',
             required: false,
             type: String,
         });
@@ -31,7 +31,7 @@ module.exports = class extends Generator {
     }
 
     writing() {
-        const rootFolder = './src/scripts/models';
+        const rootFolder = './src/scripts/actions';
         const config = this._getConfiguration();
         const customFolder = this._getFolder();
         const name = this._getName();
@@ -50,15 +50,15 @@ module.exports = class extends Generator {
 
         const params = {
             ...config,
-            model_name: name,
+            action_name: name,
         };
 
         let path, src;
         if (config.typescript) {
             path = this.destinationPath(`${folder}${name}.ts`);
-            src = this.templatePath('model.ts');
+            src = this.templatePath('action.ts');
         } else {
-            src = this.templatePath('model.js');
+            src = this.templatePath('action.js');
             path = this.destinationPath(`${folder}${name}.js`);
         }
         this.fs.copyTpl(src, path, params);

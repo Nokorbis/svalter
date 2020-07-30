@@ -1,11 +1,9 @@
 'use strict';
 
 const Generator = require('yeoman-generator');
-const chalk = require('chalk');
-const yosay = require('yosay');
 const buildQuestions = require('./questions.js');
 const options = require('./options.js');
-const {coalesce, getConfiguration} = require("../../_shared/utils");
+const { coalesce, getConfiguration } = require('../../_shared/utils');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -25,9 +23,6 @@ module.exports = class extends Generator {
     }
 
     prompting() {
-        // Have Yeoman greet the user.
-        this.log(yosay(`Welcome to the ${chalk.red('svalter:component')} generator!`));
-
         const prompts = buildQuestions(this);
 
         return this.prompt(prompts).then((props) => {
