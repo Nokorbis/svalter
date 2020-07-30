@@ -1,5 +1,11 @@
 # Changelogs
 
+### 0.5.0
+
+-   Add action generator
+-   Add model generator
+-   Add service generator
+
 ### 0.4.0
 
 -   Add route generator
