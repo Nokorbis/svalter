@@ -1,38 +1,96 @@
 'use strict';
+
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const buildQuestions = require('./questions.js');
+const options = require('./options.js');
+const { coalesce, getConfiguration } = require('../../_shared/utils');
 
 module.exports = class extends Generator {
-  prompting() {
-    // Have Yeoman greet the user.
-    this.log(
-      yosay(`Welcome to the phenomenal ${chalk.red('generator-svalter')} generator!`)
-    );
+    constructor(args, opts) {
+        super(args, opts);
 
-    const prompts = [
-      {
-        type: 'confirm',
-        name: 'someAnswer',
-        message: 'Would you like to enable this option?',
-        default: true
-      }
-    ];
+        this.argument('name', {
+            desc: 'The name of the model you want to create',
+            required: false,
+            type: String,
+        });
 
-    return this.prompt(prompts).then(props => {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    });
-  }
+        options.forEach((option) => {
+            this.option(option.name, option.config);
+        });
 
-  writing() {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
-  }
+        this.createdFiles = [];
+    }
 
-  install() {
+    prompting() {
+        this.log(yosay(`Welcome to the ${chalk.red('svalter:model')} generator!`));
 
-  }
+        const prompts = buildQuestions(this);
+
+        return this.prompt(prompts).then((props) => {
+            this.answers = props;
+        });
+    }
+
+    writing() {
+        const rootFolder = './src/scripts/models';
+        const config = this._getConfiguration();
+        const customFolder = this._getFolder();
+        const name = this._getName();
+
+        let folder = rootFolder;
+        if (customFolder) {
+            if (!customFolder.startsWith('/')) {
+                folder += '/';
+            }
+            folder += customFolder;
+        }
+
+        if (!folder.endsWith('/')) {
+            folder += '/';
+        }
+
+        const params = {
+            ...config,
+            model_name: name,
+        };
+
+        let path, src;
+        if (config.typescript) {
+            path = this.destinationPath(`${folder}${name}.ts`);
+            src = this.templatePath('model.ts');
+        } else {
+            src = this.templatePath('model.js');
+            path = this.destinationPath(`${folder}${name}.js`);
+        }
+        this.fs.copyTpl(src, path, params);
+        this.createdFiles.push(path);
+    }
+
+    install() {}
+
+    _getConfiguration() {
+        return getConfiguration(this);
+    }
+
+    _getFolder() {
+        let folder = coalesce(this.options.folder, this.answers['folder'], '');
+        if (folder.endsWith('/')) {
+            folder = folder.substr(0, folder.length - 1);
+        }
+        return folder;
+    }
+
+    _getName() {
+        return coalesce(this.options.name, this.answers['name'], 'InvalidName');
+    }
+
+    end() {
+        this.log('Running prettier');
+        this.createdFiles.forEach((path) => {
+            this.spawnCommandSync('npx', ['prettier', '--write', path, '--loglevel', 'warn']);
+        });
+    }
 };

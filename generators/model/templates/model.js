@@ -1,4 +1,4 @@
-export class <%= model_name %> {
+export default class <%= model_name %> {
 
   constructor() {
 
