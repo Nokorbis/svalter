@@ -1,5 +1,9 @@
 # Changelogs
 
+### 0.5.1
+
+- Fixes some folder not being published in npm
+
 ### 0.5.0
 
 -   Add action generator
