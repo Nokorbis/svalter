@@ -8,11 +8,6 @@
 -   **Sapper** : javascript && (css || scss)
 -   **Component library** : (javascript || typescript) && (css || scss)
 
-## Planned features
-
--   Page generation for sapper
--   Script generation (models, services, actions) (according to script configuration)
-
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-svalter using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
@@ -74,7 +69,46 @@ If your route's name starts with [ and ends with ], you would be prompted to cho
 |                        --**path**=_path_ | Put the API or the page component into a specific path/folder       |
 |            --**json-api** _or_ --**api** | Create a json api script in this generated route                    |
 | --**page-component** _or_ --\*\*page\*\* | Create a page component in this generated route                     |
-|             --**pattern**=_some_pattern_ | Available patterns: none, numbers, characters, date, time, datetime |  |
+|             --**pattern**=_some_pattern_ | Available patterns: none, numbers, characters, date, time, datetime |
+
+## Service generation
+
+```bash
+#in a svalter project
+yo svalter:service [service-name] [options...]
+```
+
+### Available options
+
+|              Option | Description                                                                      |
+| ------------------: | -------------------------------------------------------------------------------- |
+| --**folder**=_path_ | Put the service in a specific folder (which will be under /src/scripts/services) |
+
+## Model generation
+
+```bash
+#in a svalter project
+yo svalter:model [model-name] [options...]
+```
+
+### Available options
+
+|              Option | Description                                                                  |
+| ------------------: | ---------------------------------------------------------------------------- |
+| --**folder**=_path_ | Put the model in a specific folder (which will be under /src/scripts/models) |
+
+## Action generation
+
+```bash
+#in a svalter project
+yo svalter:action [action-name] [options...]
+```
+
+### Available options
+
+|              Option | Description                                                                    |
+| ------------------: | ------------------------------------------------------------------------------ |
+| --**folder**=_path_ | Put the action in a specific folder (which will be under /src/scripts/actions) |
 
 ## License
 
