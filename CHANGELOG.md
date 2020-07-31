@@ -1,5 +1,13 @@
 # Changelogs
 
+### 0.7.0 / 1.0.0
+
+- Make script separation possible in sapper
+
+### 0.6.0
+
+- Rework route generator
+
 ### 0.5.2
 
 -   Attempts to fix npm engines
