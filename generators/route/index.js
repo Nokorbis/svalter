@@ -5,15 +5,13 @@ const Generator = require('yeoman-generator');
 const patterns = require('./patterns.json');
 const buildQuestions = require('./questions.js');
 const options = require('./options.js');
-const {coalesce, getConfiguration} = require("../../_shared/utils");
+const { coalesce, getConfiguration } = require('../../_shared/utils');
 
 function adaptNameToPattern(name, patternKey) {
     name = name.toLowerCase();
-    console.log(patternKey);
     if (name.startsWith('[') && name.endsWith(']')) {
         const pattern = patterns.find((p) => p.key === patternKey);
         const regex = pattern ? pattern.regex : null;
-        console.log(regex);
         if (regex != null) {
             name = `[${name.substring(1, name.length - 1)}(${regex})]`;
         }
