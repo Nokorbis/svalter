@@ -8,6 +8,8 @@
 
 -   Rework route generator
 
+---
+
 ### 0.5.2
 
 -   Attempts to fix npm engines
