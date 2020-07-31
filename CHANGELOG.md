@@ -2,11 +2,11 @@
 
 ### 0.7.0 / 1.0.0
 
-- Make script separation possible in sapper
+-   Make script separation possible in sapper
 
 ### 0.6.0
 
-- Rework route generator
+-   Rework route generator
 
 ### 0.5.2
 
