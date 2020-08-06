@@ -169,7 +169,12 @@ module.exports = class extends Generator {
                 const part = pathParts[i];
                 if (isPathVariable(part)) {
                     const patternKey = pathVariables[j].pattern;
+                    console.log(patternKey);
                     if (patternKey != null) {
+                        let pattern = patterns.find((p) => p.key === patternKey);
+                        if (pattern != null) {
+                            pattern = pattern.regex;
+                        }
                         const partName = extractPathVariableName(part);
                         pathParts[i] = `[${partName}(${patternKey})]`;
                     }
@@ -209,7 +214,7 @@ module.exports = class extends Generator {
 
     writing() {
         const params = this.params;
-        const folder = this.params.path;
+        const folder = rootFolder + this.params.path;
         const config = this._getConfiguration();
         const name = extractNameFromParts(params.path_parts);
 
