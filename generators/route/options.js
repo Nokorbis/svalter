@@ -1,18 +1,10 @@
 'use strict';
 module.exports = [
     {
-        name: 'path',
+        name: 'patterns',
         config: {
-            desc: 'Path to prefix the route with',
+            desc: 'Defines patterns for path variables (separated by ; )',
             type: String,
-        },
-    },
-    {
-        name: 'pattern',
-        config: {
-            desc: 'Define a pattern to add to the parameter',
-            type: String,
-            alias: 'regex',
         },
     },
     {

@@ -1,8 +1,12 @@
 # Changelogs
 
-### 0.7.0 / 1.0.0
+### 0.8.0 / 1.0.0
 
 -   Make script separation possible in sapper
+
+### 0.7.0
+
+-   Add uuid in route patterns
 
 ### 0.6.0
 

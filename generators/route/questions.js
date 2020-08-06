@@ -1,74 +1,75 @@
 'use strict';
-const chalk = require('chalk');
-const path = require('path');
 
 const patterns = require('./patterns.json');
 
-module.exports = function (generator) {
-    return [
-        {
-            prefix: `${chalk.rgb(250, 110, 5)('Route |')}`,
-            type: 'input',
-            name: 'routename',
-            message: "Route's name: ",
-            when: function (responses) {
-                if (generator.options.routename == null) {
+module.exports = {
+    buildDefaultQuestions: function (generator) {
+        return [
+            {
+                type: 'input',
+                name: 'path',
+                message: "Route's path: ",
+                when: function () {
+                    if (generator.options.path == null) {
+                        return true;
+                    }
+
+                    generator.options.path = generator.options.path.trim();
+                    return generator.options.path === '';
+                },
+                validate: function (input) {
+                    if (input == null) {
+                        return false;
+                    }
+
+                    input = input.trim();
+                    if (input === '') {
+                        return 'You cannot enter an empty string';
+                    }
+
                     return true;
-                }
+                },
+            },
+            {
+                type: 'confirm',
+                name: 'page-component',
+                message: 'Do you want to generate a page svelte component ?',
+                default: true,
+            },
+            {
+                type: 'confirm',
+                name: 'json-api',
+                message: 'Do you want to generate a json api ?',
+                default: false,
+            },
+        ];
+    },
 
-                generator.options.routename = generator.options.routename.trim();
-                return generator.options.routename === '';
-            },
-            validate: function (input) {
-                if (input == null) {
-                    return false;
-                }
+    /**
+     *
+     * @param {Generator}generator
+     * @param {string[]} pathVariables
+     */
+    buildPathVariablesQuestions: function (generator, pathVariables) {
+        const patternsQuestions = [];
+        let i = 0;
+        pathVariables.forEach((variable) => {
+            patternsQuestions.push({
+                ...patternQuestionTemplate,
+                name: `pattern-${i++}`,
+                message: `Do you want to use a pattern for your variable "${variable}" ?`,
+            });
+        });
+        return patternsQuestions;
+    },
+};
 
-                input = input.trim();
-                if (input === '') {
-                    return 'You cannot enter an empty string';
-                }
-
-                return true;
-            },
-        },
-        {
-            prefix: `${chalk.rgb(250, 110, 5)('Route |')}`,
-            type: 'list',
-            name: 'pattern',
-            message: 'Do you want to use a predefined pattern in your route?',
-            choices: patterns.map(p => { return {name: p.display, value: p.key}}),
-            default: 'none',
-            when: function (responses) {
-                const name = responses['routename'];
-                return name.startsWith('[') && name.endsWith(']');
-            },
-        },
-        {
-            prefix: `${chalk.rgb(250, 110, 5)('Route |')}`,
-            type: 'input',
-            name: 'pathprefix',
-            message: 'Do you want to prefix the route with a path? (leave empty for none)',
-            when: function (responses) {
-                if (generator.options.path == null) {
-                    return true;
-                }
-                return false;
-            },
-        },
-        {
-            prefix: `${chalk.rgb(250, 110, 5)('Features |')}`,
-            type: 'confirm',
-            name: 'page-component',
-            message: 'Do you want to generate a page svelte component ?',
-            default: true,
-        },
-        {
-            prefix: `${chalk.rgb(250, 110, 5)('Features |')}`,
-            type: 'confirm',
-            name: 'json-api',
-            message: 'Do you want to generate a json api ?',
-            default: false,
-        },
-    ];
+const patternQuestionTemplate = {
+    type: 'list',
+    name: 'pattern',
+    message: 'Do you want to use a predefined pattern in your route?',
+    choices: patterns.map((p) => {
+        return { name: p.display, value: p.key };
+    }),
+    default: 'none',
 };

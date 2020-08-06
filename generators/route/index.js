@@ -1,51 +1,119 @@
 'use strict';
 
+const fs = require('fs');
 const Generator = require('yeoman-generator');
 
 const patterns = require('./patterns.json');
-const buildQuestions = require('./questions.js');
+const { buildDefaultQuestions, buildPathVariablesQuestions } = require('./questions.js');
 const options = require('./options.js');
 const { coalesce, getConfiguration } = require('../../_shared/utils');
 
-function adaptNameToPattern(name, patternKey) {
-    name = name.toLowerCase();
-    if (name.startsWith('[') && name.endsWith(']')) {
-        const pattern = patterns.find((p) => p.key === patternKey);
-        const regex = pattern ? pattern.regex : null;
-        if (regex != null) {
-            name = `[${name.substring(1, name.length - 1)}(${regex})]`;
-        }
-    }
+const rootFolder = 'src/routes/';
 
-    return name;
+function isPathVariable(pathPart) {
+    return pathPart.startsWith('[') && pathPart.endsWith(']');
 }
 
-function formatFolderPath(rootFolder, customFolder, name, pattern) {
-    let folder = rootFolder;
-    if (customFolder) {
-        if (!customFolder.startsWith('/')) {
-            folder += '/';
+function extractPathVariableName(pathVariable) {
+    return pathVariable.substring(1, pathVariable.length - 1);
+}
+
+function hasPattern(pathVariable) {
+    const content = extractPathVariableName(pathVariable);
+    return content.endsWith(')') && content.includes('(');
+}
+
+function hasNoPattern(pathVariable) {
+    return !hasPattern(pathVariable);
+}
+
+function findMatchingFolder(subfolders, pathVariable) {
+    const name = extractPathVariableName(pathVariable);
+    for (let i = 0; i < subfolders.length; i++) {
+        const folder = subfolders[i];
+        if (isPathVariable(folder)) {
+            const folderName = extractPathVariableName(folder);
+            if (folderName.startsWith(name)) {
+                const pattern = folderName.substring(name.length);
+                if (pattern.startsWith('(') && pattern.endsWith(')')) {
+                    return folder;
+                }
+            }
         }
-        folder += customFolder.toLowerCase();
     }
 
-    if (!folder.endsWith('/')) {
-        folder += '/';
-    }
-    folder += adaptNameToPattern(name, pattern);
+    return null;
+}
 
-    if (!folder.endsWith('/')) {
-        folder += '/';
+function adaptPathToExitingRoutes(currentPath, pathParts) {
+    const actualParts = [];
+    let currentExist = true;
+    for (let i = 0; i < pathParts.length; i++) {
+        let part = pathParts[i];
+        if (currentExist) {
+            if (fs.existsSync(currentPath)) {
+                const subFolders = fs.readdirSync(currentPath);
+                if (!subFolders.includes(part)) {
+                    if (isPathVariable(part)) {
+                        const matchingFolder = findMatchingFolder(subFolders, part);
+                        if (matchingFolder == null) {
+                            currentExist = false;
+                        } else {
+                            part = matchingFolder;
+                        }
+                    }
+                }
+            }
+        }
+
+        actualParts.push(part);
+        currentPath += part + '/';
     }
-    return folder;
+
+    return actualParts;
+}
+
+function getPathVariablesToPattern(pathParts) {
+    let currentIndex = 0;
+    for (let i = 0; i < pathParts.length; i++) {
+        const currentParts = pathParts.slice(0, i);
+        const path = rootFolder + currentParts.join('/');
+        if (!fs.existsSync(path)) {
+            break;
+        }
+        currentIndex = i + 1;
+    }
+    return pathParts.slice(currentIndex).filter(isPathVariable).filter(hasNoPattern);
+}
+
+function registerPatternOptions(optPatterns, varMatches) {
+    if (optPatterns) {
+        optPatterns = optPatterns
+            .split(';')
+            .map((p) => p.trim())
+            .filter((p) => p !== '');
+
+        for (let i = 0; i < varMatches.length && i < optPatterns.length; i++) {
+            varMatches[i].pattern = optPatterns[i];
+        }
+    }
+}
+
+function extractNameFromParts(pathParts) {
+    const index = pathParts.length - 1;
+    let last = pathParts[index];
+    if (isPathVariable(last)) {
+        last = extractPathVariableName(last);
+    }
+    return last;
 }
 
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
 
-        this.argument('routename', {
-            desc: 'The name of the route you want to create',
+        this.argument('path', {
+            desc: 'The path of the route you want to create',
             required: false,
             type: String,
         });
@@ -68,22 +136,82 @@ module.exports = class extends Generator {
         );
     }
 
-    prompting() {
-        const prompts = buildQuestions(this);
+    async prompting() {
+        const prompts = buildDefaultQuestions(this);
 
-        return this.prompt(prompts).then((answers) => {
-            this.answers = answers;
-        });
+        const baseAnswers = await this.prompt(prompts);
+
+        this.params = this._extractBaseParams(baseAnswers);
+        let pathParts = this.params.path_parts;
+        const pathVariables = getPathVariablesToPattern(pathParts);
+
+        if (pathVariables.length > 0) {
+            const varMatches = pathVariables.map((v) => {
+                return { key: v, pattern: null };
+            });
+
+            let optPatterns = this.options['patterns'];
+            registerPatternOptions(optPatterns, varMatches);
+
+            const missingVars = varMatches.filter((m) => m.pattern == null);
+            const varQuestions = buildPathVariablesQuestions(
+                this,
+                missingVars.map((v) => v.key)
+            );
+            const varAnswers = await this.prompt(varQuestions);
+
+            for (let i = 0; i < missingVars.length && i < varAnswers.length; i++) {
+                missingVars[i].pattern = varAnswers[`pattern-${i}`];
+            }
+
+            let j = varMatches.length - 1;
+            for (let i = pathParts.length - 1; i >= 0; i--) {
+                const part = pathParts[i];
+                if (isPathVariable(part)) {
+                    const patternKey = pathVariables[j].pattern;
+                    if (patternKey != null) {
+                        const partName = extractPathVariableName(part);
+                        pathParts[i] = `[${partName}(${patternKey})]`;
+                    }
+                    j--;
+                }
+            }
+
+            this.params.path_parts = pathParts;
+            this.params.path = pathParts.join('/');
+        }
+    }
+
+    _extractBaseParams(baseAnswers) {
+        let path = coalesce(this.options.path, baseAnswers.path, 'InvalidPath');
+        let parts = path
+            .toLowerCase()
+            .split('/')
+            .map((p) => p.trim())
+            .filter((p) => p !== '');
+
+        if (parts.length > 1) {
+            parts = adaptPathToExitingRoutes(rootFolder, parts);
+            path = parts.join('/');
+        }
+
+        if (fs.existsSync(path)) {
+            this.env.error('This route already exists.');
+        }
+
+        return {
+            path: path,
+            path_parts: parts,
+            api: coalesce(this.options['json-api'], baseAnswers['json-api'], false),
+            page: coalesce(this.options['page-component'], baseAnswers['page-component'], true),
+        };
     }
 
     writing() {
-        const params = this._getParameters();
+        const params = this.params;
+        const folder = this.params.path;
         const config = this._getConfiguration();
-        const rootFolder = './src/routes';
-        const customFolder = params.path;
-        const name = params.name;
-
-        let folder = formatFolderPath(rootFolder, customFolder, name, params.pattern);
+        const name = extractNameFromParts(params.path_parts);
 
         if (params.page) {
             this._addScript(config, folder);
@@ -141,19 +269,6 @@ module.exports = class extends Generator {
 
     _supportsRouting() {
         return 'sapper' === this.config.get('project-type');
-    }
-
-    _getParameters() {
-        const opts = this.options;
-        const answs = this.answers;
-
-        return {
-            name: coalesce(opts['routename'], answs['routename'], 'InvalidName'),
-            api: coalesce(opts['api'], answs['json-api'], false),
-            page: coalesce(opts['page'], answs['page-component'], true),
-            path: coalesce(opts['path'], answs['pathprefix'], ''),
-            pattern: coalesce(opts['pattern'], answs['pattern'], 'none'),
-        };
     }
 
     _getConfiguration() {
