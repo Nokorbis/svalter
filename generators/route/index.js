@@ -75,14 +75,17 @@ function adaptPathToExitingRoutes(currentPath, pathParts) {
 
 function getPathVariablesToPattern(pathParts) {
     let currentIndex = 0;
+
     for (let i = 0; i < pathParts.length; i++) {
-        const currentParts = pathParts.slice(0, i);
+        const currentParts = pathParts.slice(0, i + 1);
         const path = rootFolder + currentParts.join('/');
-        if (!fs.existsSync(path)) {
+        const pathExists = fs.existsSync(path);
+        if (!pathExists) {
             break;
         }
         currentIndex = i + 1;
     }
+
     return pathParts.slice(currentIndex).filter(isPathVariable).filter(hasNoPattern);
 }
 
@@ -158,25 +161,30 @@ module.exports = class extends Generator {
                 this,
                 missingVars.map((v) => v.key)
             );
+
             const varAnswers = await this.prompt(varQuestions);
 
-            for (let i = 0; i < missingVars.length && i < varAnswers.length; i++) {
-                missingVars[i].pattern = varAnswers[`pattern-${i}`];
+            for (let i = 0; i < missingVars.length; i++) {
+                const key = `pattern-${i}`;
+                const value = varAnswers[key];
+                missingVars[i].pattern = value;
             }
 
             let j = varMatches.length - 1;
-            for (let i = pathParts.length - 1; i >= 0; i--) {
+            for (let i = pathParts.length - 1; i >= 0 && j >= 0; i--) {
                 const part = pathParts[i];
                 if (isPathVariable(part)) {
-                    const patternKey = pathVariables[j].pattern;
-                    console.log(patternKey);
+                    const match = varMatches[j];
+                    console.log(varMatches);
+                    console.log(match);
+                    const patternKey = match.pattern;
                     if (patternKey != null) {
                         let pattern = patterns.find((p) => p.key === patternKey);
                         if (pattern != null) {
                             pattern = pattern.regex;
+                            const partName = extractPathVariableName(part);
+                            pathParts[i] = `[${partName}(${pattern})]`;
                         }
-                        const partName = extractPathVariableName(part);
-                        pathParts[i] = `[${partName}(${patternKey})]`;
                     }
                     j--;
                 }
