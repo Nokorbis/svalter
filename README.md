@@ -17,6 +17,10 @@ npm install -g yo
 npm install -g generator-svalter
 ```
 
+## Usage notes :
+
+Each option is optional. If the generator needs more data, you will be prompted a question.
+
 ## Project generation
 
 ```bash
@@ -62,12 +66,20 @@ yo svalter:component [component-name] [options...]
 yo svalter:route [route] [options...]
 ```
 
-If your route's name starts with [ and ends with ], you would be prompted to choose a predefined pattern to help you
+If your route's name starts with [ and ends with ], you will be prompted to choose a predefined pattern to help you.  
+If you have existing routes containing path variables with patterns, you can skip the pattern, and the generator will still find the right route for you.
+Example:
+If a route "/a/[b(some-pattern)]/" exists, to generate a new [c] route, you can type :
+```bash
+yo svalter:route a/[b]/[c]
+```
 
-|                               Option | Description                                                                                                                                                                 |
-| -----------------------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        --**json-api** _or_ --**api** | Create a json api script in this generated route                                                                                                                            |
-| --**page-component** _or_ --**page** | Create a page component in this generated route                                                                                                                             |
+### Available options
+
+|                               Option | Description                                                                                                                                                                                         |
+| -----------------------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|        --**json-api** _or_ --**api** | Create a json api script in this generated route                                                                                                                                                    |
+| --**page-component** _or_ --**page** | Create a page component in this generated route                                                                                                                                                     |
 |         --**pattern**=_some_pattern_ | Available patterns: **none**, **numbers**, **characters**, **date**, **time**, **datetime**. Many patterns can be specified (separated by ; ) _for each path variable that doesn't currently exist_ |
 
 ## Service generation
