@@ -175,8 +175,6 @@ module.exports = class extends Generator {
                 const part = pathParts[i];
                 if (isPathVariable(part)) {
                     const match = varMatches[j];
-                    console.log(varMatches);
-                    console.log(match);
                     const patternKey = match.pattern;
                     if (patternKey != null) {
                         let pattern = patterns.find((p) => p.key === patternKey);
