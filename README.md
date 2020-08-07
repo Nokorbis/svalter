@@ -2,6 +2,11 @@
 
 > Generator to help you create and manage svelte/sapper application
 
+## Features
+
+- Generate a boilerplate project for svelte, sapper or a component library
+- Generate routes (sapper only), components, models, services and (svelte) actions
+
 ## Supported "templates"
 
 -   **Svelte** : (javascript || typescript) && (css || scss)
