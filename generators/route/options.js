@@ -5,6 +5,7 @@ module.exports = [
         config: {
             desc: 'Defines patterns for path variables (separated by ; )',
             type: String,
+            alias: 'pattern',
         },
     },
     {

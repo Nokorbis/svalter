@@ -8,11 +8,11 @@
 
 -   Add uuid in route patterns
 
+---
+
 ### 0.6.0
 
 -   Rework route generator
-
----
 
 ### 0.5.2
 
