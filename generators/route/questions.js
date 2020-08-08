@@ -35,12 +35,32 @@ module.exports = {
                 name: 'page-component',
                 message: 'Do you want to generate a page svelte component ?',
                 default: true,
+                when: function (answers) {
+                    return generator.options.page == null;
+                },
+            },
+            {
+                type: 'confirm',
+                name: 'page-layout',
+                default: false,
+                message: 'Do you want to generate a page layout ?',
+                when: function (answers) {
+                    if (generator.options.layout == null) {
+                        if (generator.options.page === true || answers['page-component'] === true) {
+                            return true;
+                        }
+                    }
+                    return false;
+                },
             },
             {
                 type: 'confirm',
                 name: 'json-api',
                 message: 'Do you want to generate a json api ?',
                 default: false,
+                when: function () {
+                    return generator.options.api == null;
+                },
             },
         ];
     },

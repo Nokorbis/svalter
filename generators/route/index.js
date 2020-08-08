@@ -215,6 +215,7 @@ module.exports = class extends Generator {
             path_parts: parts,
             api: coalesce(this.options['json-api'], baseAnswers['json-api'], false),
             page: coalesce(this.options['page-component'], baseAnswers['page-component'], true),
+            layout: coalesce(this.options['page-layout'], baseAnswers['page-layout'], false),
         };
     }
 
@@ -223,29 +224,66 @@ module.exports = class extends Generator {
         const folder = rootFolder + this.params.path;
         const config = this._getConfiguration();
         const name = extractNameFromParts(params.path_parts);
+        const templateParams = {
+            ...config,
+            routename: name,
+            layout: params.layout,
+        };
 
         if (params.page) {
             this._addScript(config, folder);
             this._addStyle(config, folder);
 
-            const path = this.destinationPath(`${folder}/index.svelte`);
-            this.fs.copyTpl(this.templatePath('route.svelte'), path, {
-                ...config,
-                routename: name,
-            });
+            let path = this.destinationPath(`${folder}/index.svelte`);
+            this.fs.copyTpl(this.templatePath('route.svelte'), path, templateParams);
 
             this.createdFiles.push(path);
+
+            if (params.layout) {
+                path = this.destinationPath(`${folder}/_layout.svelte`);
+                this.fs.copyTpl(this.templatePath('layout/_layout.svelte'), path, templateParams);
+
+                this._addLayoutScript(config, folder);
+                this._addLayoutStyle(config, folder);
+
+                this.createdFiles.push(path);
+            }
         }
 
         if (params.api) {
             const fileName = `index.json.${config.typescript ? 'ts' : 'js'}`;
 
             const path = this.destinationPath(`${folder}/${fileName}`);
-            this.fs.copyTpl(this.templatePath(fileName), path, {
-                ...config,
-                routename: name,
-            });
+            this.fs.copyTpl(this.templatePath(fileName), path, templateParams);
 
+            this.createdFiles.push(path);
+        }
+    }
+
+    _addLayoutScript(config, folder) {
+        if (config.script_separation) {
+            let path;
+            if (config.typescript) {
+                path = this.destinationPath(`${folder}/_layout.ts`);
+                this.fs.copy(this.templatePath('layout/_layout.ts'), path);
+            } else {
+                path = this.destinationPath(`${folder}/_layout.js`);
+                this.fs.copy(this.templatePath('layout/_layout.js'), path);
+            }
+            this.createdFiles.push(path);
+        }
+    }
+
+    _addLayoutStyle(config, folder) {
+        if (config.style_separation) {
+            let path;
+            if (config.sass) {
+                path = this.destinationPath(`${folder}/_layout.scss`);
+                this.fs.copy(this.templatePath('layout/_layout.scss'), path);
+            } else {
+                path = this.destinationPath(`${folder}/_layout.css`);
+                this.fs.copy(this.templatePath('layout/_layout.css'), path);
+            }
             this.createdFiles.push(path);
         }
     }

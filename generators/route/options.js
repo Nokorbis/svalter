@@ -24,4 +24,12 @@ module.exports = [
             desc: 'Creates a page component file in that route',
         },
     },
+    {
+        name: 'page-layout',
+        config: {
+            alias: 'layout',
+            type: Boolean,
+            desc: 'Creates a page layout file in that route',
+        },
+    },
 ];
