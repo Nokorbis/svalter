@@ -4,8 +4,8 @@
 
 ## Features
 
-- Generate a boilerplate project for svelte, sapper or a component library
-- Generate routes (sapper only), components, models, services and (svelte) actions
+-   Generate a boilerplate project for svelte, sapper or a component library
+-   Generate routes (sapper only), components, models, services and (svelte) actions
 
 ## Supported "templates"
 
@@ -72,9 +72,10 @@ yo svalter:route [route] [options...]
 ```
 
 If your route's name starts with [ and ends with ], you will be prompted to choose a predefined pattern to help you.  
-If you have existing routes containing path variables with patterns, you can skip the pattern, and the generator will still find the right route for you.
-Example:
+If you have existing routes containing path variables with patterns, you can skip the pattern, and the generator will still find the right route for you.  
+Example:  
 If a route "/a/[b(some-pattern)]/" exists, to generate a new [c] route, you can type :
+
 ```bash
 yo svalter:route a/[b]/[c]
 ```
