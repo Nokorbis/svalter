@@ -111,6 +111,19 @@ function extractNameFromParts(pathParts) {
     return last;
 }
 
+function extractLastPartAsVariable(pathParts) {
+    const index = pathParts.length - 1;
+    const part = pathParts[index];
+
+    if (!isPathVariable(part)) {
+        return null;
+    }
+
+    let name = extractPathVariableName(part);
+    const patternStart = name.indexOf('(');
+    return name.substring(0, patternStart);
+}
+
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
@@ -228,6 +241,7 @@ module.exports = class extends Generator {
             ...config,
             routename: name,
             layout: params.layout,
+            variable: extractLastPartAsVariable(params.path_parts),
         };
 
         if (params.page) {

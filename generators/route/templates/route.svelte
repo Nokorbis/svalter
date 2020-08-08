@@ -1,3 +1,11 @@
+<script context="module">
+  export async function preload(page, session) {
+    <% if (variable && !layout) { -%>
+      const { <%= variable -%>} = page.params;
+    <% } -%>
+  }
+</script>
+
 <% if (script_separation) { -%>
 
 <% if (typescript) { -%>
