@@ -1,4 +1,9 @@
-<%- include(paths.partials.scripts, {filename: '_error', folder: 'src/routes'}); %>
+<script>
+  export let status;
+  export let error;
+
+  const dev = process.env.NODE_ENV === 'development';
+</script>
 
 <svelte:head>
 	<title>{status}</title>
