@@ -12,11 +12,13 @@
 
 -   Add optional layout files in routes
 
+---
+
 ### 0.7.0
 
 -   Add uuid in route patterns
-
----
+-   Fix date and times patterns for route
+-   Update sapper to version 0.28
 
 ### 0.6.0
 
