@@ -3,7 +3,7 @@
     { "display": "Numbers only", "key": "numbers", "regex": "[0-9]+" },
     { "display": "Characters only", "key": "characters", "regex": "[a-z]+" },
     { "display": "No", "key": "none", "regex": null },
-    { "display": "Date", "key": "date", "regex": "[0-9]{4}-[0-1][0-9]-[0-3][0-9]" },
-    { "display": "Time", "key": "time", "regex": "[0-2][0-9]-[0-5][0-9]" },
-    { "display": "DateTime", "key": "datetime", "regex": "[0-9]{4}-[0-1][0-9]-[0-3][0-9]-[0-2][0-9]-[0-5][0-9]" }
+    { "display": "Date", "key": "date", "regex": "[0-9]{4}-[0-1]{1}[0-9]{1}-[0-3]{1}[0-9]{1}" },
+    { "display": "Time", "key": "time", "regex": "[0-2]{1}[0-9]{1}-[0-5]{1}[0-9]{1}" },
+    { "display": "DateTime", "key": "datetime", "regex": "[0-9]{4}-[0-1]{1}[0-9]{1}-[0-3]{1}[0-9]{1}-[0-2]{1}[0-9]{1}-[0-5]{1}[0-9]{1}" }
 ]
