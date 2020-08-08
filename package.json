@@ -1,6 +1,6 @@
 {
     "name": "generator-svalter",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "description": "Generator to help you create and manage svelte/sapper application",
     "homepage": "https://github.com/Nokorbis/svalter",
     "author": {

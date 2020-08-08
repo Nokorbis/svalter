@@ -8,11 +8,11 @@
 
 -   If new route include variables, get the variable in the generated files
 
+---
+
 ### 0.8.0
 
 -   Add optional layout files in routes
-
----
 
 ### 0.7.0
 
