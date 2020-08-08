@@ -4,8 +4,6 @@
 
 -   Make script separation possible in sapper
 
----
-
 ### 0.9.0
 
 -   If new route include variables, get the variable in the generated files
