@@ -22,7 +22,7 @@
 </script>
 <% } else { -%>
 <script>
-  <%- include('./_layout.js'); -%>
+  <%- include('./_layout.ts'); -%>
 </script>
 <% } -%>
 

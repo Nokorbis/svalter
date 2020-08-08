@@ -1,6 +1,4 @@
-<script>
-	export let segment;
-</script>
+<%- include(paths.partials.scripts, {filename: '_Nav', folder: 'src/components/Nav'}); %>
 
 <nav>
 	<ul>

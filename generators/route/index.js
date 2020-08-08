@@ -282,7 +282,7 @@ module.exports = class extends Generator {
                 this.fs.copy(this.templatePath('layout/_layout.ts'), path);
             } else {
                 path = this.destinationPath(`${folder}/_layout.js`);
-                this.fs.copy(this.templatePath('layout/_layout.js'), path);
+                this.fs.copy(this.templatePath('layout/_layout.ts'), path);
             }
             this.createdFiles.push(path);
         }

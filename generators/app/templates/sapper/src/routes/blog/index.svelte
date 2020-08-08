@@ -6,10 +6,7 @@
 	}
 </script>
 
-<script>
-	export let posts;
-</script>
-
+<%- include(paths.partials.scripts, {filename: '_index', folder: 'src/routes/blog'}); %>
 
 <svelte:head>
 	<title>Blog</title>

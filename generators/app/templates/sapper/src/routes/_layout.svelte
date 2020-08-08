@@ -1,8 +1,4 @@
-<script>
-	import Nav from '../components/Nav/Nav.svelte';
-
-	export let segment;
-</script>
+<%- include(paths.partials.scripts, {filename: '_layout', folder: 'src/routes'}); %>
 
 <Nav {segment}/>
 
