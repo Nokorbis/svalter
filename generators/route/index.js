@@ -240,7 +240,7 @@ module.exports = class extends Generator {
         if (params.api) {
             const fileName = `index.json.${config.typescript ? 'ts' : 'js'}`;
 
-            const path = this.destinationPath(`${folder}${fileName}`);
+            const path = this.destinationPath(`${folder}/${fileName}`);
             this.fs.copyTpl(this.templatePath(fileName), path, {
                 ...config,
                 routename: name,
