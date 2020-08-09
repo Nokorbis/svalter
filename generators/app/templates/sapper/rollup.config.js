@@ -22,9 +22,22 @@ const onwarn = (warning, onwarn) =>
   (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) ||
   onwarn(warning);
 
+<% if (typescript) { -%>
+function adaptScriptExtension(input) {
+  if (typeof input !== 'string') {
+    return {server: input.server.replace(/\.js$/, '.ts')};
+  }
+  return input.replace(/\.js$/, '.ts');
+}
+<% } else { -%>
+function adaptScriptExtension(input) {
+    return input;
+}
+<% } -%>
+
 export default {
     client: {
-        input: config.client.input(),
+        input: adaptScriptExtension(config.client.input()),
         output: config.client.output(),
         plugins: [
             replace({
@@ -44,7 +57,7 @@ export default {
             }),
             commonjs(),
             <% if (typescript) { -%>
-            typescript({ sourceMap: dev }),
+            typescript(),
             <% } -%>
             legacy &&
                 babel({
@@ -81,7 +94,7 @@ export default {
     },
 
     server: {
-        input: config.server.input(),
+        input: adaptScriptExtension(config.server.input()),
         output: config.server.output(),
         plugins: [
             replace({
@@ -99,7 +112,7 @@ export default {
             }),
             commonjs(),
             <% if (typescript) { -%>
-            typescript({ sourceMap: dev }),
+            typescript(),
             <% } -%>
         ],
         external: Object.keys(pkg.dependencies).concat(
@@ -111,7 +124,7 @@ export default {
     },
 
     serviceworker: {
-        input: config.serviceworker.input(),
+        input: adaptScriptExtension(config.serviceworker.input()),
         output: config.serviceworker.output(),
         plugins: [
             resolve(),
@@ -121,7 +134,7 @@ export default {
             }),
             commonjs(),
             <% if (typescript) { -%>
-            typescript({ sourceMap: dev }),
+            typescript(),
             <% } -%>
             !dev && terser(),
         ],

@@ -170,6 +170,11 @@ module.exports = class Writer {
                 pkg.devDependencies['svelte-check'] = '^1.0.10';
                 pkg.devDependencies['tslib'] = '^2.0.1';
                 pkg.devDependencies['@tsconfig/svelte'] = '^1.0.8';
+
+                if ('sapper' === prepParams.project_type) {
+                  pkg.devDependencies['@types/polka'] = '^0.5.1';
+                  pkg.devDependencies['@types/compression'] = '^1.7.0';
+                }
             }
         }
 

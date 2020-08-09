@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
 
-module.exports = function(generator) {
+module.exports = function (generator) {
     return [
         {
             type: 'list',
@@ -13,7 +13,7 @@ module.exports = function(generator) {
                 { name: 'Component Library', value: 'library' },
             ],
             default: 1,
-            when: function(responses) {
+            when: function (responses) {
                 return (
                     !generator.options.svelte &&
                     !generator.options.sapper &&
@@ -25,11 +25,8 @@ module.exports = function(generator) {
             type: 'input',
             name: 'project-name',
             message: "Project's name: ",
-            default: process
-                .cwd()
-                .split(path.sep)
-                .pop(),
-            when: function(responses) {
+            default: process.cwd().split(path.sep).pop(),
+            when: function (responses) {
                 if (generator.options.appname == null) {
                     return true;
                 }
@@ -42,7 +39,7 @@ module.exports = function(generator) {
             type: 'checkbox',
             name: 'support-preprocessors',
             message: 'Do you want your project to support some preprocessors ?',
-            choices: function(answers) {
+            choices: function (answers) {
                 const choices = [
                     {
                         name: 'Separates styles from component template',
@@ -53,20 +50,18 @@ module.exports = function(generator) {
                         value: 'script-separation',
                     },
                     { name: 'SASS', value: 'sass' },
+                    { name: 'TypeScript', value: 'typescript' },
                 ];
 
-                if (answers['project-type'] !== 'sapper' && generator.options['sapper'] !== true) {
-                    choices.push({ name: 'TypeScript', value: 'typescript' });
-                }
                 return choices;
             },
-            default: function(responses) {
+            default: function (responses) {
                 const opts = generator.options;
                 return ['sass', 'typescript', 'style-separation', 'script-separation'].filter(
                     (opt) => opts[opt] === true
                 );
             },
-            when: function(responses) {
+            when: function (responses) {
                 const opts = generator.options;
                 return (
                     opts.typescript == null ||
