@@ -1,5 +1,9 @@
 # Changelogs
 
+### 1.1.0
+
+-   Add typescript support for sapper
+
 ### 1.0.0
 
 -   Make script separation possible in sapper

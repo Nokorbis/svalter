@@ -10,7 +10,7 @@
 ## Supported "templates"
 
 -   **Svelte** : (javascript || typescript) && (css || scss)
--   **Sapper** : javascript && (css || scss)
+-   **Sapper** : (javascript || typescript) && (css || scss)
 -   **Component library** : (javascript || typescript) && (css || scss)
 
 ## Installation
