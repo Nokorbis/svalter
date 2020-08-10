@@ -34,6 +34,8 @@ cd your-project
 yo svalter [project_name] [options...]
 ```
 
+![svalter-gif](https://github.com/Nokorbis/svalter/raw/master/doc/gifs/svalter.gif)
+
 ### Available options
 
 |                               Option | Description                                                                                                                                      |
