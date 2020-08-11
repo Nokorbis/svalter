@@ -1,5 +1,10 @@
 # Changelogs
 
+### 1.1.1
+
+-   Adds <slot> in generated layout
+-   Properly generate javascript and not typescript when js is selected for route layouts
+
 ### 1.1.0
 
 -   Add typescript support for sapper
