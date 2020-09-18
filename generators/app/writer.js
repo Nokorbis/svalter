@@ -156,24 +156,24 @@ module.exports = class Writer {
         const pkg = { scripts: {}, devDependencies: {}, dependencies: {} };
 
         if (prepParams.has_preprocessors) {
-            pkg.devDependencies['svelte-preprocess'] = '4.0.10';
+            pkg.devDependencies['svelte-preprocess'] = '4.3.0';
 
             if (prepParams.sass) {
-                pkg.devDependencies['sass'] = '^1.26.10';
-                pkg.devDependencies['postcss'] = '^7.0.32';
+                pkg.devDependencies['sass'] = '^1.26.11';
+                pkg.devDependencies['postcss'] = '^8.0.5';
             }
 
             if (prepParams.typescript) {
                 pkg.scripts['validate'] = 'svelte-check';
-                pkg.devDependencies['typescript'] = '^3.9.7';
-                pkg.devDependencies['@rollup/plugin-typescript'] = '^5.0.2';
-                pkg.devDependencies['svelte-check'] = '^1.0.10';
+                pkg.devDependencies['typescript'] = '^4.0.3';
+                pkg.devDependencies['@rollup/plugin-typescript'] = '^6.0.0';
+                pkg.devDependencies['svelte-check'] = '^1.0.44';
                 pkg.devDependencies['tslib'] = '^2.0.1';
-                pkg.devDependencies['@tsconfig/svelte'] = '^1.0.8';
+                pkg.devDependencies['@tsconfig/svelte'] = '^1.0.10';
 
                 if ('sapper' === prepParams.project_type) {
-                  pkg.devDependencies['@types/polka'] = '^0.5.1';
-                  pkg.devDependencies['@types/compression'] = '^1.7.0';
+                  pkg.devDependencies['@types/polka'] = '^0.5.2';
+                  pkg.devDependencies['@types/compression'] = '^1.7.4';
                 }
             }
         }
